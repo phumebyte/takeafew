@@ -80,6 +80,21 @@ products.forEach(product => {
   const viewProductModalBtn = productDiv.querySelector('.product-image');
   viewProductModalBtn.addEventListener('click', () => {
     viewProductDialog.showModal();
+
+    const productDetailsModal = document.getElementById('product-detail');
+    productDetailsModal.innerHTML = `
+      <img class="product-image" src="${product.thumbnail}" alt="${product.title}">
+      <div class="details">
+        <div class="title">${product.title}</div>
+        <div class="price">R${product.price}</div>
+        <div class="description">${product.description}</div>
+        <button class="btn-primary">Add to Cart</button>
+        <div class="reviews">
+          Reviews
+        </div>
+      </div>
+      
+    `;
   });
 
   allProductsDiv.appendChild(productDiv);
