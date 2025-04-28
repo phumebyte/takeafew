@@ -146,6 +146,7 @@ nav .right i:hover {
 .category-list a:hover {
   font-size: 1.125rem;
   transition: var(--transition-sm);
+  cursor: pointer;
 }
 
 /* MAIN SECTION */
@@ -270,6 +271,7 @@ dialog {
   font-size: 2rem;
 }
 
+
 /* MODAL BUTTON */
 .modal-button {
   display: block;
@@ -309,7 +311,7 @@ footer {
   font-size: 2rem;
 }
 
-/* CART & WISHLIST */
+/* CART */
 .cart-dialog {
   margin: 0;
   top: 4.1rem;
@@ -359,6 +361,87 @@ footer {
   text-align: center;
   font-size: 1.5rem;
   margin-bottom: var(--space-sm);
+}
+
+ /* REGISTER & LOGIN */
+ .register-dialog {
+  width: 30%;
+  height: 82%;
+ }
+
+ .login-dialog {
+  width: 30%;
+ }
+
+ .login-dialog .close-login {
+  display: flex;
+  justify-content: right;
+ }
+
+ .register-dialog .close-register {
+  display: flex;
+  justify-content: right;
+ }
+
+ .login .register {
+  background: hsl(0, 10%, 92%);
+  padding: 30px 40px;
+  margin: 20px 0;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+} 
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #444;
+}
+
+input {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.3s;
+}
+
+input:focus {
+  border-color: var(--white);
+}
+
+
+#forget-login {
+  background: none;
+  border: none;
+  color: var(--primary100);
+  font-size: 14px;
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.login h3{
+  text-align: center;
+}
+
+#forget-login:hover {
+  color: var(--primary50);
+}
+
+.login-div h1{
+  text-align: center;
+}
+
+.register-div {
+  text-align: center;
 }
 
 /* ICON */
