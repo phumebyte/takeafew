@@ -1945,4 +1945,4 @@ function dimensionsCalculation() {
   console.log(dimensionsArray);
 }
 
-export { products };
+export { products , cart, addToCart, deleteFromCart, updateName, updateStock, totalPrice, reviewAccount, discountAmount, warranty, fiveStarRating, dimensionsCalculation };
