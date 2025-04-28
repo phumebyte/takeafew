@@ -1774,4 +1774,175 @@ const products = [
 
 console.log({ products });
 
-export { products }
+let cart = [];
+
+function addToCart(productId) {
+  let product = null;
+
+  for (let i = 0; i < products.length; i++) {
+    let item = products[i];
+
+    if (productId === item.id) {
+      product = item;
+    }
+
+    if (product !== null) {
+      for (let t = 0; t < cart.length; t++) {
+        if (cart[t].product.id == productId) {
+          cart[t].count++;
+          //console.log(product)
+          //extending to check if the count is greater than the stock, cannot more add items to cart if stock is less than the count
+          if (cart[t].count > product.stock) {
+            console.log("No more stock available");
+            cart[t].count = product.stock;
+          }
+          return;
+        }
+      }
+
+      let id = Math.floor(Math.random() * 30);
+
+      let cartProduct = {
+        id: id,
+        count: 0,
+        product,
+      };
+
+      cart.push(cartProduct);
+    }
+  }
+}
+
+function deleteFromCart(deleteId) {
+  for (let i = 0; i < cart.length; i++) {
+    //console.log(cart[i].product.id)
+    if (cart[i].product.id == deleteId) {
+      if (cart[i].count > 1) {
+        cart[i].count -= 1;
+      } else {
+        cart.splice(i, 1);
+      }
+      return;
+    }
+  }
+}
+
+function updateName(updatedId, newName) {
+  for (let i = 0; i < products.length; i++) {
+    if (products[i].id == updatedId) {
+      products[i].title = newName;
+      console.log(products[i]);
+    }
+  }
+}
+
+function updateStock(updatedId, newStock) {
+  for (let i = 0; i < products.length; i++) {
+    if (updatedId === products[i].id) {
+      products[i].stock = newStock;
+      console.log(products[i]);
+    }
+  }
+}
+
+function totalPrice([cart]) {
+  let total = 0;
+  for (let i = 0; i < cart.length; i++) {
+    if (cart[i].product.minimumOrderQuantity < cart[i].count) {
+      total +=
+        cart[i].product.price *
+        cart[i].count *
+        (cart[i].product.discountPercentage / 100);
+    } else {
+      total += cart[i].product.price * cart[i].count;
+    }
+  }
+  console.log("R" + Math.ceil(total));
+}
+
+function reviewAccount(email) {
+  let count = 0;
+  let reviewedProducts = [];
+
+  for (let i = 0; i < products.length; i++) {
+    for (let o = 0; o < products[i].reviews.length; o++) {
+      if (products[i].reviews[o].reviewerEmail === email) {
+        count++;
+        reviewedProducts.push(products[i]);
+      }
+    }
+  }
+
+  let reviewer = {
+    totalReviews: count,
+    reviewedProducts: reviewedProducts,
+  };
+
+  console.log(reviewer);
+  return count;
+}
+
+function discountAmount(productId) {
+  let total = 0;
+  for (let i = 0; i < products.length; i++) {
+    if (products[i].id == productId) {
+      total =
+        products[i].price -
+        (products[i].price * products[i].discountPercentage) / 100;
+    }
+  }
+  console.log(total);
+}
+
+let twoMonthWarranty = [];
+
+function warranty() {
+  for (let i = 0; i < products.length; i++) {
+    if (products[i].warrantyInformation) {
+      let warrantyInfo = products[i].warrantyInformation.split(" ");
+      let duration = parseInt(warrantyInfo[0]);
+      let unit = warrantyInfo[1];
+
+      if (
+        (unit === "months" && duration < 10) ||
+        (unit === "year" && duration < 1)
+      ) {
+        twoMonthWarranty.push(products[i]);
+      }
+    }
+  }
+
+  console.log(twoMonthWarranty);
+}
+
+let fiveStarArray = [];
+
+function fiveStarRating() {
+  for (let i = 0; i < products.length; i++) {
+    for (let j = 0; j < products[i].reviews.length; j++) {
+      if (products[i].reviews[j].rating == 5) {
+        //console.log(products[i].reviews[j])
+        fiveStarArray.push(products[i]);
+        break;
+      }
+    }
+  }
+
+  console.log(fiveStarArray);
+}
+
+function dimensionsCalculation() {
+  console.log("=========================>");
+  let dimensionsArray = [];
+
+  for (let i = 0; i < products.length; i++) {
+    let dimensions = products[i].dimensions;
+    if (dimensions.width > 20 && dimensions.height > 20) {
+      dimensionsArray.push(products[i]);
+    }
+  }
+
+  console.log(dimensionsArray);
+}
+
+export { products };
