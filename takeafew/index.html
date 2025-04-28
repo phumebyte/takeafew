@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>takeafew</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/script.js" type="module" defer></script>
+</head>
+
+<body>
+
+    <nav class="nav-top">
+
+        <div class="heading">
+            takeafew
+        </div>
+
+        <div class="right">
+            <div>
+                <i class="bi bi-heart-fill" id="wishlist-btn"></i>
+            </div>
+
+            <div class="cartCount">
+                <span>10</span>
+                <i class="bi bi-cart3" id="cart"></i>
+            </div>
+
+            <div>
+                <a href="#" id="login">Login</a>
+            </div>
+            <div>
+                <a href="#" id="register">Register</a>
+            </div>
+
+        </div>
+    </nav>
+    <div class="category-list">
+        <a>Household</a>
+        <p>|</p>
+        <a>Beverages and liquor</a>
+        <p>|</p>
+        <a>Beauty</a>
+        <p>|</p>
+        <a>Groceries</a>
+        <p>|</p>
+        <a>Electronics</a>
+    </div>
+
+    <main>
+        <div class="allproducts" id="allproducts">   
+        </div>
+    </main>
+
+
+    <dialog class="view-product" id="view-product-dialog">
+        <div class="product-detail">
+
+            <img src="https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/thumbnail.png"
+                alt="">
+
+            <div class="details">
+
+                <div class="title">
+                    <h4>Eyeshadow Palette with mirror</h4>
+                    <p>Description Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                </div>
+                <div class="price-div">
+                    <div class="price">R10.00</div>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn-primary">Add to Cart</button>
+                </div>
+                <div class="reviews">
+                    <p>Rating</p>
+                    <i class="bi bi-star-fill"></i> 3.82
+                </div>
+            </div>
+        </div>
+        <div class="reviews">
+            <h2>Reviews</h2>
+            <div class="reviewer">
+                <h3>maya.reed@x.dummyjson.com</h3>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis numquam rerum aperiam.</p>
+            </div>
+            <div class="reviewer">
+                <h3>maya.reed@x.dummyjson.com</h3>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis numquam rerum aperiam.</p>
+            </div>
+
+        </div>
+
+        <button class="modal-button" id="close-view-modal">Close</button>
+    </dialog>
+
+    <dialog class="cart-dialog" id="cart-dialog" style="width: 400px;">
+        <div class="product-cart">
+            <div class="close-cart-div">
+                <button id="cart-close-btn" class="close-cart-btn">Close Cart</button>
+            </div>
+            
+            <h2>Your Cart</h2>
+            <div class="a-product" style="display: flex;">
+                <div class="left-product" style=" margin-top: 20px; height: 180px;">
+                    <div class="image-checkout" style="width: 160px; height: 180px; background: url('https://www.lowyat.net/wp-content/uploads/2019/08/noblechairs-epic-mercedes-amg-petronas-motorsport-02b.jpg'); 
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    "></div>
+
+                </div>
+
+                <div class="right-product" style="margin-top: 0px; padding: 30px; ">
+                    <p>Mercedes Benz Seat Chair</p>
+                    <div class="counterProduct" style="display: flex; padding-top: 30px;">
+                        <div class="decrementButtom"
+                            style="border-radius: 100%; cursor: pointer; border: solid 1px black; padding: 10px; width: 40px; height: 40px;">
+                            <p style="margin-left: 5px">-</p>
+                        </div>
+                        <div class="crementedAmount" style="margin-left: 10px; padding: 10px; margin-right: 10px;">5
+                        </div>
+                        <div class="incrementButton" style="border-radius: 50%; cursor: pointer; border: solid 1px black; padding: 10px; 
+                        width: 40px; height: 40px;">
+                            <p style="margin-left: 5px">+</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; margin-top: 20px;">
+                        <p>R </p>
+                        <p>2500</p>
+                    </div>
+                </div>
+            </div>
+            <div class="a-product" style="display: flex;">
+                <div class="left-product" style="border: solid 1px black; margin-top: 20px; height: 180px;">
+                    <div class="image-checkout" style=" width: 160px; height: 180px;
+                    background: url('https://driventowrite.com/wp-content/uploads/2015/09/wheelpic_bbs-usa-2011_1926.jpg'); 
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;"></div>
+
+                </div>
+
+                <div class="right-product" style="margin-top: 0px; padding: 30px; ">
+                    <p>Mercedes Benz Seat Chair</p>
+                    <div class="counterProduct" style="display: flex; padding-top: 30px;">
+                        <div class="decrementButtom"
+                            style="border-radius: 100%; cursor: pointer; border: solid 1px black; padding: 10px; width: 40px; height: 40px;">
+                            <p style="margin-left: 5px">-</p>
+                        </div>
+                        <div class="crementedAmount" style="margin-left: 10px; padding: 10px; margin-right: 10px;">5
+                        </div>
+                        <div class="incrementButton" style="border-radius: 50%; cursor: pointer; border: solid 1px black; padding: 10px; 
+                        width: 40px; height: 40px;">
+                            <p style="margin-left: 5px">+</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; margin-top: 20px;">
+                        <p>R </p>
+                        <p>2500</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="checkout-total">
+            <h4>Cart Total</h4>
+            <p>R10000</p>
+        </div>
+
+        <div class="cart-buttons">
+            <button class="checkout-btn">Checkout</button>
+        </div>
+    </dialog>
+
+    <dialog class="wishlist-dialog" id="wishlist-dialog">
+
+        <div class="close-button-div">
+            <button class="close-wishlist-btn" id="close-wishlist-btn">Close</button>
+        </div>  
+
+        <div class="wishlist-heading" style="text-align: center;">
+            <h1>My Wishlist</h1>
+        </div>
+
+        <div class="productz">
+            <div class="a-product" style="width: 100%; height: 500px">
+
+                <div class="wishlist-header"
+                    style="justify-content: space-between; display: flex; padding-left: 130px; padding-right: 130px; padding-top: 50px;">
+                    <h3 style="font-style: bolder;">Product name</h3>
+                    <h3 style="font-style: bolder;">Unit Price</h3>
+                    <h3 style="font-style: bolder;">Stock Status</h3>
+                </div>
+
+                <div class="wishlist-products">
+                    <div class="a-product-from-wishlist" style="width: 100%; height: 100px; margin-top: 20px; display:flex; ">
+                        <div>
+                            <i class="bi bi-trash"></i>
+                        </div>
+                        <div class="product-name-wishlist" style="display: flex; margin-left: 50px; width: 400px;">
+                            <div class="product-wishlist-image" style="background: url('https://assets.dyler.com/uploads/posts/393/images/11139/rims-made-by-bbs.jpeg');
+                            background-position: center;
+                            background-repeat: no-repeat;
+                            background-size: cover;
+                            height: 70px; width: 70px;"></div>
+                            <p style="margin-top: 20px; margin-left: 20px; font-style: bolder;">BBS Chrome Wheels 17"</p>
+                        </div>
+
+                        <div class="wishlist-unit-price" style="display: flex; padding: 30px; width: 400px; 
+                        justify-content: center;
+                        text-align: center;">
+                            <p class="currency">R </p>
+                            <p class="price" style="justify-content: center;">3 500</p>
+                        </div>
+
+                        <div class="wishlist-stock-status" style="display: flex; padding: 30px; width: 470px; 
+                        justify-content: center;
+                        text-align: center;">
+                            <p class="price" style="padding-left: 90px;">In Stock</p>
+                        </div>
+                        <i class="bi bi-cart3" id="cart" ></i>
+                    </div>
+
+                    <div class="a-product-from-wishlist" style="width: 100%; height: 100px; margin-top: 20px; display:flex; ">
+                        <div>
+                            <i class="bi bi-trash"></i>
+                        </div>
+                        <div class="product-name-wishlist" style="display: flex; margin-left: 50px; width: 400px;">
+                            <div class="product-wishlist-image" style="background: url('https://assets.dyler.com/uploads/posts/393/images/11139/rims-made-by-bbs.jpeg');
+                            background-position: center;
+                            background-repeat: no-repeat;
+                            background-size: cover;
+                            height: 70px; width: 70px;"></div>
+                            <p style="margin-top: 20px; margin-left: 20px; font-style: bolder;">BBS Chrome Wheels 17"</p>
+                        </div>
+
+                        <div class="wishlist-unit-price" style="display: flex; padding: 30px; width: 400px; 
+                        justify-content: center;
+                        text-align: center;">
+                            <p class="currency">R </p>
+                            <p class="price" style="justify-content: center;">3 500</p>
+                        </div>
+
+                        <div class="wishlist-stock-status" style="display: flex; padding: 30px; width: 470px; 
+                        justify-content: center;
+                        text-align: center;">
+                            <p class="price" style="padding-left: 90px;">In Stock</p>
+                        </div>
+                        <i class="bi bi-cart3" id="cart" ></i>
+                    </div>
+
+                    <div class="a-product-from-wishlist" style="width: 100%; height: 100px; margin-top: 20px; display:flex; ">
+                        <div>
+                            <i class="bi bi-trash"></i>
+                        </div>
+                        <div class="product-name-wishlist" style="display: flex; margin-left: 50px; width: 400px;">
+                            <div class="product-wishlist-image" style="background: url('https://assets.dyler.com/uploads/posts/393/images/11139/rims-made-by-bbs.jpeg');
+                            background-position: center;
+                            background-repeat: no-repeat;
+                            background-size: cover;
+                            height: 70px; width: 70px;"></div>
+                            <p style="margin-top: 20px; margin-left: 20px; font-style: bolder;">BBS Chrome Wheels 17"</p>
+                        </div>
+
+                        <div class="wishlist-unit-price" style="display: flex; padding: 30px; width: 400px; 
+                        justify-content: center;
+                        text-align: center;">
+                            <p class="currency">R </p>
+                            <p class="price" style="justify-content: center;">3 500</p>
+                        </div>
+
+                        <div class="wishlist-stock-status" style="display: flex; padding: 30px; width: 470px; 
+                        justify-content: center;
+                        text-align: center;">
+                            <p class="price" style="padding-left: 90px;">In Stock</p>
+                        </div>
+                        <i class="bi bi-cart3" id="cart" ></i>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </dialog>
+
+    <dialog class="login-dialog" id="login-dialog">
+        <div class="close-login">
+            <button class="login-back-btn" id="login-back-btn">Back to shopping</button>
+        </div>
+
+        <div class="login">
+            <div class="login-div">
+                <h1>Welcome Back!</h1>
+            </div>
+            
+            <form id="login">
+                <label id="email-address" for="email">Email Adresss:</label>
+                <input id="email" type="text" placeholder="Email Adress" required />
+    
+                <label id="password-label" for="password">Password:</label>
+                <input id="password" type="text" placeholder="password" required />
+    
+                <button id="submit-login" type="submit">Login</button>
+            </form>
+            <button id="forget-login" type="submit" ><h3>Forget your Password?</h3></button>
+
+        </div>
+    </dialog>
+
+    <dialog class="register-dialog" id="register-dialog">
+        <div class="close-register">
+            <button class="register-back-btn" id="register-back-btn">Back to shopping</button>
+        </div>
+
+        <div class="register-form">
+            <div class="register-div">
+                <h1>Register</h1>
+                <h3>New Here?</h3>
+                <p>Registration is free and easy!</p>
+            </div>
+            
+            <form id="register">
+
+                <label id="firstName-label" for="name">First Name:</label>
+                <input id="name" type="text" placeholder="First Name" required />
+
+                <label id="lastName-label" for="lastName">Last Name:</label>
+                <input id="lastName" type="text" placeholder="Last Name" required />
+
+                <label id="email-address" for="email">Email Address:</label>
+                <input id="email" type="text" placeholder="Email Address" required />
+
+                <label id="cellphone-label" for="cellphone">Cellphone Number:</label>
+                <input id="cellphone" type="text" placeholder="0123456789" />
+
+                <label id="password-label" for="password">Password:</label>
+                <input id="password" type="text" placeholder="password" required />
+
+                <label id="passwordConfirmed-label" for="confirmed-password">Confirm Password:</label>
+                <input id="confirmed-password" type="text" placeholder="Confirm Password" required />
+
+                <button id="submit-register" type="submit">Register</button>
+            </form>
+        </div>
+  
+    </dialog>
+
+    <footer>
+        <div class="left-footer">
+            <h1 class="footer-header">takeafew</h1>
+            <p class="footer-descrip">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Voluptatibus porro, architecto quaerat, expedita quidem ullam
+                fugiat ratione illo praesentium quas eligendi officiis hic dolorum,
+                tenetur natus explicabo. Rerum, ipsa doloremque?
+            </p>
+            <div class="social-media-icons">
+                <i class="bi bi-instagram"></i>
+                <i class="bi bi-facebook"></i>
+                <i class="bi bi-messenger"></i>
+                <i class="bi bi-twitter-x"></i>
+                <i class="bi bi-whatsapp"></i>
+                <i class="bi bi-twitch"></i>
+            </div>
+        </div>
+
+        <div class="center-footer">
+            <h1 class="footer-header">Contact-info</h1>
+            <ol>
+                <li>+27 123 456 789</li>
+                <li>helpline@xperience.com</li>
+                <li>403 Johnson Avenue, Pretoria</li>
+                <li>Gauteng, 0082</li>
+                <li>South Africa</li>
+            </ol>
+        </div>
+
+        <div class="right-footer">
+            <h1 class="footer-header">Our Location</h1>
+            <div class="map-container">
+                <iframe width="450px" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                    src="https://maps.google.com/maps?width=100%%26amp;height=600&amp;hl=en&amp;q=Garston%20AH,%20Pretoria,%200063+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+                    <a href="https://www.gps.ie/collections/drones/">buy drones</a>
+                </iframe>
+            </div>
+        </div>
+    </footer>
+
+
+</body>
+
+
+
+
+
+</html>
