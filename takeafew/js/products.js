@@ -1772,7 +1772,7 @@ const products = [
   },
 ];
 
-console.log({ products });
+//console.log({ products });
 
 let cart = [];
 
