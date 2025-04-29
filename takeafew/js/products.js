@@ -1932,7 +1932,6 @@ function fiveStarRating() {
 }
 
 function dimensionsCalculation() {
-  console.log("=========================>");
   let dimensionsArray = [];
 
   for (let i = 0; i < products.length; i++) {
