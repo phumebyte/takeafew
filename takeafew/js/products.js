@@ -1775,14 +1775,86 @@ const products = [
 // FETCHING FROM API
 async function getProducts(){
   try {
-    const data = await fetch('https://dummyjson.com/products')
-    console.log(data)
+    const serverData = await fetch('https://dummyjson.com/products')
+    const data = await serverData.json()
+    const {products} = data
+    console.log(products)
+
+    displayProducts(products)
   } catch (error) {
     console.log(error)
   }
 }
 
 getProducts()
+
+function displayProducts(products) {
+  const productContainer = document.getElementById('allproducts');
+
+  // Clear the container before adding products
+  productContainer.innerHTML = '';
+
+  for (let i = 0; i < products.length; i++) {
+    const item = products[i];
+
+    productContainer.innerHTML += `
+
+      <div id="productDiv" class="product">
+        <img class="product-image" id="product-image-${item.id}" src="${item.thumbnail}" alt="${item.title}">
+        <div class="discount">${item.discountPercentage}%</div>
+        <div class="details">
+          <div class="reviews"><i class="bi bi-star-fill"></i> ${item.rating}</div>
+          <div class="title">${item.title}</div>
+          <div class="price-div">
+            <div class="price">R${item.price}</div>
+            <div class="higher-price">${item.higherPrice}</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-primary">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+    `;
+  }
+
+  // Use event delegation to handle clicks on product images
+  productContainer.addEventListener('click', (event) => {
+    if (event.target.classList.contains('product-image')) {
+      const productId = event.target.id.split('-')[2]; // Extract product ID from the image ID
+      const product = products.find((item) => item.id == productId);
+
+      if (product) {
+        const viewProductDialog = document.getElementById('view-product-dialog');
+        const productDetailsModal = document.getElementById('product-detail');
+
+        // Populate the modal with product details
+        productDetailsModal.innerHTML = `
+          <img class="product-image" src="${product.thumbnail}" alt="${product.title}">
+          <div class="details">
+            <div class="title">${product.title}</div>
+            <div class="price">R${product.price}</div>
+            <div class="description">${product.description}</div>
+            <button class="btn-primary">Add to Cart</button>
+            <div class="reviews">
+              Reviews
+            </div>
+          </div>
+        `;
+
+        // Show the modal
+        viewProductDialog.showModal();
+      }
+    }
+  });
+
+  // Close the modal when the close button is clicked
+  const closeProductDialog = document.getElementById('close-view-modal');
+  closeProductDialog.addEventListener('click', () => {
+    const viewProductDialog = document.getElementById('view-product-dialog');
+    viewProductDialog.close();
+  });
+}
 
 //console.log({ products });
 
