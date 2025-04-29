@@ -1779,6 +1779,10 @@ let cart = [];
 function addToCart(productId) {
   let product = null;
 
+  if(!productId){
+    throw new Error('Error: No Product ID found')
+  }
+
   for (let i = 0; i < products.length; i++) {
     let item = products[i];
 

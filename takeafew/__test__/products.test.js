@@ -22,4 +22,20 @@ describe(' [ cart ]', () => {
     test('should be an array', () => { 
         expect(Array.isArray(cart)).toBe(true)
     })
+
  })
+
+ describe(' [ addToCartFn ]', () => { 
+    test('should be a valid function', () => { 
+        expect( addToCart ).toBeDefined()
+        expect(typeof addToCart).toBe('function')
+        expect(() => addToCart()).toThrow()
+    })
+
+    test('should add product to cart', () => {  
+        const id = 1
+        addToCart(id)
+
+        expect(cart.length).toBe(1)
+    })
+  })
