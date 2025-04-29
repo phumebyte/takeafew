@@ -1772,6 +1772,18 @@ const products = [
   },
 ];
 
+// FETCHING FROM API
+async function getProducts(){
+  try {
+    const data = await fetch('https://dummyjson.com/products')
+    console.log(data)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+getProducts()
+
 //console.log({ products });
 
 let cart = [];
