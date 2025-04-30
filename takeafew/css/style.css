@@ -40,18 +40,20 @@ body {
 button {
   border: none;
   border-radius: var(--space-xm);
-  padding: 0.75rem 1rem;
+  padding: 1rem;
   font-size: 1rem;
-  background-color: var(--primary100);
+  background-color: var(--primary150);
   color: var(--white);
   cursor: pointer;
   transition: var(--transition-sm);
   margin-top: var(--space-sm);
+  float: right;
 }
 
 button:hover {
   transform: scale(1.05);
-  background-color: var(--primary50);
+  background-color: var(--primary150);
+
 }
 
 .btn-primary {
@@ -281,7 +283,9 @@ dialog {
 .modal-button {
   display: block;
   margin: 3rem auto 0;
-  padding: 1rem 2rem;
+  padding: 1rem;
+  margin-top: 0;
+  background-color: transparent;
 }
 
 /* FOOTER */
@@ -342,6 +346,7 @@ footer {
 
 .close-cart-btn {
   background: var(--primary100);
+
 }
 
 .checkout-btn {
@@ -453,4 +458,8 @@ input:focus {
   font-size: 1.5rem;
   color: var(--gray100);
   cursor: pointer;
+}
+
+.bi-x-lg{
+  color: var(--gray150);
 }
