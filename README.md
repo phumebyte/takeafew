@@ -88,7 +88,7 @@ This project is a fully functional **E-Commerce web application** built using **
    ```
 4. Run index.html on your browser
 
-##📌 Notes
+## 📌 Notes
 
  - Ensure all state changes are reflected instantly in the UI.
  - Avoid overengineering—stick to simple, clean Vanilla JS logic.
