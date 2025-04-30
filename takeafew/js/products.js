@@ -25,7 +25,6 @@ function displayProducts(products) {
     const item = products[i];
 
     productContainer.innerHTML += `
-
       <div id="productDiv" class="product">
         <img class="product-image" id="product-image-${item.id}" src="${item.thumbnail}" alt="${item.title}">
         <div class="discount">${item.discountPercentage}%</div>
@@ -38,13 +37,38 @@ function displayProducts(products) {
           </div>
           <div class="btn-group">
             <button class="btn-primary">Add to Cart</button>
-            <button class="btn-primary">Add to Wishlist</button>
+            <button class="btn-primary" id="wishlist-toggle-${item.id}" id="heart"><i class="bi bi-heart" id="open-heart" ></i></button>
           </div>
         </div>
       </div>
-
     `;
+      
+    
+}
+
+// Add unique event listeners
+for (let i = 0; i < products.length; i++) {
+  const item = products[i];
+  const wishlistButton = document.getElementById(`wishlist-toggle-${item.id}`);
+  wishlistButton.onclick = function() {
+      toggleWishlist(item.id); 
+  };
+}
+
+function toggleWishlist(productId) {
+
+  const toggleHeart = document.getElementById('heart')
+  const icon = document.getElementById('open-heart');
+  if (icon.classList.contains('bi-heart')) {
+      icon.classList.remove('bi-heart');
+      icon.classList.add('bi-heart-fill');
+  } else {
+    icon.classList.remove('bi-heart-fill');
+      icon.classList.add('bi-heart');
   }
+}
+
+
 
   // Use event delegation to handle clicks on product images
   productContainer.addEventListener('click', (event) => {
@@ -88,6 +112,7 @@ function displayProducts(products) {
             <div class="stock"><strong>Product in Stock: </strong>${product.stock}</div>
             <div class="minimumOrderQuantity"><strong>Minimum Order Quantity: </strong>${product.minimumOrderQuantity}</div>
             <button class="btn-primary">Add to Cart</button>
+            <button class="btn-primary">Add to Wishlist</button>
             <div class="reviews" id=reviews>
               ${reviewsHTML}
             </div>
@@ -101,6 +126,7 @@ function displayProducts(products) {
       }
     }
   });
+}
 
   // Close the modal when the close button is clicked
   const closeProductDialog = document.getElementById('close-view-modal');
@@ -108,9 +134,7 @@ function displayProducts(products) {
     const viewProductDialog = document.getElementById('view-product-dialog');
     viewProductDialog.close();
   });
-}
 
-//console.log({ products });
 
 let cart = [];
 
@@ -286,4 +310,9 @@ function dimensionsCalculation() {
   console.log(dimensionsArray);
 }
 
-export { getProducts, cart, addToCart, deleteFromCart, updateName, updateStock, totalPrice, reviewAccount, discountAmount, warranty, fiveStarRating, dimensionsCalculation };
+function toggleWishlist() {
+    console.log('Is it me, Jesus?');
+    // Add further functionality as needed
+}
+
+export { toggleWishlist, getProducts, cart, addToCart, deleteFromCart, updateName, updateStock, totalPrice, reviewAccount, discountAmount, warranty, fiveStarRating, dimensionsCalculation };

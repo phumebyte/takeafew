@@ -1,5 +1,5 @@
 // IMPORTS
-import { getProducts } from "./products.js";
+import { getProducts , toggleWishlist } from "./products.js";
 
 // MODALS
 const viewProductDialog = document.getElementById("view-product-dialog");
@@ -52,3 +52,6 @@ const closeCartDialog = document.getElementById('cart-close-btn')
   closeRegisterBtn.addEventListener('click', () => {
     viewRegisterDialog.close()
   })
+
+  const wishlistToggle = document.getElementById('wishlist-toggle')
+  wishlistToggle.onclick = function() {toggleWishlist()}
