@@ -51,17 +51,28 @@ function displayProducts(products) {
       const productId = event.target.id.split('-')[2]; // Extract product ID from the image ID
       const product = products.find((item) => item.id == productId);
 
+      console.log('is it me Jesus')
       if (product) {
         const viewProductDialog = document.getElementById('view-product-dialog');
         const productDetailsModal = document.getElementById('product-detail');
 
-      // console.log('is it me Jesus?')
-      // for (let i = 0; i < product.length; i++) {
-      //   const item = product[i].reviews;
-      //   console.log('is it me Jesus?')
-        
-      // }
+      console.log('is it me Jesus?')
+      console.log(product)
+      let reviewsHTML = '<h3>Reviews</h3>'
 
+      for (let i = 0; i < product.reviews.length; i++) {
+        const item = product.reviews;
+       reviewsHTML +=`
+              <div class="reviews" id=reviews>
+                <p>${item[i].reviewerName}  (<strong>${item[i].reviewerEmail}</strong>)</p> 
+                <p>Rating: ${item[i].rating}/5 STARS</p>
+                <p>Comment: ${item[i].comment}</p>
+                <div>
+                  <br>
+                </div>
+              </div>`
+
+        
         // Populate the modal with product details
         productDetailsModal.innerHTML = `
           <img class="product-image" src="${product.thumbnail}" alt="${product.title}">
@@ -77,13 +88,14 @@ function displayProducts(products) {
             <div class="stock"><strong>Product in Stock: </strong>${product.stock}</div>
             <div class="minimumOrderQuantity"><strong>Minimum Order Quantity: </strong>${product.minimumOrderQuantity}</div>
             <button class="btn-primary">Add to Cart</button>
-            <div class="reviews">
-              <h3>Reviews</h3>
-
+            <div class="reviews" id=reviews>
+              ${reviewsHTML}
             </div>
+            
           </div>
         `;
-
+    
+      }
         // Show the modal
         viewProductDialog.showModal();
       }
