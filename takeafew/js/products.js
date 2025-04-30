@@ -66,7 +66,7 @@ function displayProducts(products) {
         productDetailsModal.innerHTML = `
           <img class="product-image" src="${product.thumbnail}" alt="${product.title}">
           <div class="details">
-            <div class="title"><strong>${product.title}</strong></div>
+            <div class="title"><h2>${product.title}</h2></div>
             <div class="price">R${product.price}</div>
             <div class="description">${product.description}</div>
             <div class="categoryName"><strong>Category: </strong>${product.category}</div>
