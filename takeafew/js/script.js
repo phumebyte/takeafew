@@ -1,5 +1,5 @@
 // IMPORTS
-import { products } from "./products.js";
+import { getProducts } from "./products.js";
 
 // MODALS
 const viewProductDialog = document.getElementById("view-product-dialog");
