@@ -56,8 +56,7 @@ function displayProducts(products) {
         const viewProductDialog = document.getElementById('view-product-dialog');
         const productDetailsModal = document.getElementById('product-detail');
 
-  
-      console.log(product)
+        
       let reviewsHTML = '<h3>Reviews</h3>'
 
       for (let i = 0; i < product.reviews.length; i++) {
