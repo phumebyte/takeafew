@@ -38,6 +38,7 @@ function displayProducts(products) {
           </div>
           <div class="btn-group">
             <button class="btn-primary">Add to Cart</button>
+            <button class="btn-primary">Add to Wishlist</button>
           </div>
         </div>
       </div>
