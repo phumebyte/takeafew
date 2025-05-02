@@ -1,5 +1,5 @@
 // IMPORTS
-import { getProducts , toggleWishlist } from "./products.js";
+import { toggleWishlist } from "./products.js";
 
 // MODALS
 const viewProductDialog = document.getElementById("view-product-dialog");
