@@ -1,0 +1,61 @@
+import { getProducts , toggleWishlist } from "./products.js";
+ 
+// MODALS
+const viewProductDialog = document.getElementById("view-product-dialog");
+const closeProductDialog = document.getElementById("close-view-modal");
+ 
+const viewCartModalBtn = document.getElementById('cart');
+const numberCartModalBtn = document.getElementById('numberCount');
+const viewCartDialog = document.getElementById('cart-dialog');
+const closeCartDialog = document.getElementById('cart-close-btn');
+ 
+  viewCartModalBtn.addEventListener('click', () => {
+    viewCartDialog.showModal()
+  });
+ 
+  numberCartModalBtn.addEventListener('click', () => {
+    viewCartDialog.showModal()
+  })
+ 
+  closeCartDialog.addEventListener('click', () => {
+    viewCartDialog.close()
+  })
+ 
+  const viewWishlistBtn = document.getElementById('wishlist-btn')
+  const viewWishlostDialog = document.getElementById('wishlist-dialog')
+  const closeWishlistBtn = document.getElementById('close-wishlist-btn')
+ 
+  viewWishlistBtn.addEventListener('click', () => {
+    viewWishlostDialog.showModal()
+  })
+ 
+  closeWishlistBtn.addEventListener('click', () => {
+    viewWishlostDialog.close()
+  })
+ 
+  const viewLoginBtn = document.getElementById('login')
+  const viewLoginDialog = document.getElementById('login-dialog')
+  const closeLoginBtn = document.getElementById('login-back-btn')
+ 
+  viewLoginBtn.addEventListener('click', () => {
+    viewLoginDialog.showModal()
+  })
+ 
+  closeLoginBtn.addEventListener('click', () => {
+    viewLoginDialog.close()
+  })
+ 
+  const viewRegisterBtn = document.getElementById('register')
+  const viewRegisterDialog = document.getElementById('register-dialog')
+  const closeRegisterBtn = document.getElementById('register-back-btn')
+ 
+  viewRegisterBtn.addEventListener('click', () => {
+    viewRegisterDialog.showModal()
+  })
+ 
+  closeRegisterBtn.addEventListener('click', () => {
+    viewRegisterDialog.close()
+  })
+ 
+  const wishlistToggle = document.getElementById('wishlist-toggle')
+  wishlistToggle.onclick = function() {toggleWishlist()}

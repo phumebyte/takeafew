@@ -1,5 +1,5 @@
 // IMPORTS
-import { toggleWishlist } from "./products.js";
+import { toggleWishlist , updateCartCount} from "./products.js";
 
 // MODALS
 const viewProductDialog = document.getElementById("view-product-dialog");
@@ -52,9 +52,6 @@ const closeCartDialog = document.getElementById('cart-close-btn')
   closeRegisterBtn.addEventListener('click', () => {
     viewRegisterDialog.close()
   })
-
-  // const wishlistToggle = document.getElementById('wishlist-toggle')
-  // wishlistToggle.onclick = function() {toggleWishlist()}
 
   const submitRegister = document.getElementById('submit-register')
 
@@ -113,3 +110,4 @@ const closeCartDialog = document.getElementById('cart-close-btn')
       alert('Something went wrong')
     }
   }
+

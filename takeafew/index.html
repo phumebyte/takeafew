@@ -67,81 +67,23 @@
     </dialog>
 
     <dialog class="cart-dialog" id="cart-dialog" style="width: 400px;">
-        <div class="product-cart">
             <div class="close-cart-div">
+                <h2>Your Cart</h2>
                 <button id="cart-close-btn" class="close-cart-btn">Close Cart</button>
             </div>
             
-            <h2>Your Cart</h2>
-            <div class="a-product" style="display: flex;">
-                <div class="left-product" style=" margin-top: 20px; height: 180px;">
-                    <div class="image-checkout" style="width: 160px; height: 180px; background: url('https://www.lowyat.net/wp-content/uploads/2019/08/noblechairs-epic-mercedes-amg-petronas-motorsport-02b.jpg'); 
-                    background-size: cover;
-                    background-position: center;
-                    background-repeat: no-repeat;
-                    "></div>
-
-                </div>
-
-                <div class="right-product" style="margin-top: 0px; padding: 30px; ">
-                    <p>Mercedes Benz Seat Chair</p>
-                    <div class="counterProduct" style="display: flex; padding-top: 30px;">
-                        <div class="decrementButtom"
-                            style="border-radius: 100%; cursor: pointer; border: solid 1px black; padding: 10px; width: 40px; height: 40px;">
-                            <p style="margin-left: 5px">-</p>
-                        </div>
-                        <div class="crementedAmount" style="margin-left: 10px; padding: 10px; margin-right: 10px;">5
-                        </div>
-                        <div class="incrementButton" style="border-radius: 50%; cursor: pointer; border: solid 1px black; padding: 10px; 
-                        width: 40px; height: 40px;">
-                            <p style="margin-left: 5px">+</p>
-                        </div>
-                    </div>
-                    <div style="display: flex; margin-top: 20px;">
-                        <p>R </p>
-                        <p>2500</p>
-                    </div>
-                </div>
+            
+            <div class="checkout-products">
             </div>
-            <div class="a-product" style="display: flex;">
-                <div class="left-product" style="border: solid 1px black; margin-top: 20px; height: 180px;">
-                    <div class="image-checkout" style=" width: 160px; height: 180px;
-                    background: url('https://driventowrite.com/wp-content/uploads/2015/09/wheelpic_bbs-usa-2011_1926.jpg'); 
-                    background-size: cover;
-                    background-position: center;
-                    background-repeat: no-repeat;"></div>
 
-                </div>
-
-                <div class="right-product" style="margin-top: 0px; padding: 30px; ">
-                    <p>Mercedes Benz Seat Chair</p>
-                    <div class="counterProduct" style="display: flex; padding-top: 30px;">
-                        <div class="decrementButtom"
-                            style="border-radius: 100%; cursor: pointer; border: solid 1px black; padding: 10px; width: 40px; height: 40px;">
-                            <p style="margin-left: 5px">-</p>
-                        </div>
-                        <div class="crementedAmount" style="margin-left: 10px; padding: 10px; margin-right: 10px;">5
-                        </div>
-                        <div class="incrementButton" style="border-radius: 50%; cursor: pointer; border: solid 1px black; padding: 10px; 
-                        width: 40px; height: 40px;">
-                            <p style="margin-left: 5px">+</p>
-                        </div>
-                    </div>
-                    <div style="display: flex; margin-top: 20px;">
-                        <p>R </p>
-                        <p>2500</p>
-                    </div>
-                </div>
+            <div class="checkout-total">
+                <h4>Cart Total</h4>
+                <p id="priceTotal" class="priceTotal"></p>
             </div>
-        </div>
-        <div class="checkout-total">
-            <h4>Cart Total</h4>
-            <p>R10000</p>
-        </div>
 
-        <div class="cart-buttons">
-            <button class="checkout-btn">Checkout</button>
-        </div>
+            <div class="cart-buttons">
+                <button class="checkout-btn" >Checkout</button>
+            </div>
     </dialog>
 
     <dialog class="wishlist-dialog" id="wishlist-dialog">
@@ -150,105 +92,19 @@
             <button class="close-wishlist-btn" id="close-wishlist-btn">Close</button>
         </div>  
 
-        <div class="wishlist-heading" style="text-align: center;">
+        <div class="wishlist-heading">
             <h1>My Wishlist</h1>
         </div>
 
-        <div class="productz">
-            <div class="a-product" style="width: 100%; height: 500px">
+        <div class="wishlist-products-container">
+            <div class="wishlist-header">
+                <strong><h3>Product Name</h3></strong>
+                <strong><h3>Unit Price</h3></strong>
+                <strong><h3>Stock Status</h3></strong>
+                <strong><h3>Action</h3></strong>
+            </div>
 
-                <div class="wishlist-header"
-                    style="justify-content: space-between; display: flex; padding-left: 130px; padding-right: 130px; padding-top: 50px;">
-                    <h3 style="font-style: bolder;">Product name</h3>
-                    <h3 style="font-style: bolder;">Unit Price</h3>
-                    <h3 style="font-style: bolder;">Stock Status</h3>
-                </div>
-
-                <div class="wishlist-products">
-                    <div class="a-product-from-wishlist" style="width: 100%; height: 100px; margin-top: 20px; display:flex; ">
-                        <div>
-                            <i class="bi bi-trash"></i>
-                        </div>
-                        <div class="product-name-wishlist" style="display: flex; margin-left: 50px; width: 400px;">
-                            <div class="product-wishlist-image" style="background: url('https://assets.dyler.com/uploads/posts/393/images/11139/rims-made-by-bbs.jpeg');
-                            background-position: center;
-                            background-repeat: no-repeat;
-                            background-size: cover;
-                            height: 70px; width: 70px;"></div>
-                            <p style="margin-top: 20px; margin-left: 20px; font-style: bolder;">BBS Chrome Wheels 17"</p>
-                        </div>
-
-                        <div class="wishlist-unit-price" style="display: flex; padding: 30px; width: 400px; 
-                        justify-content: center;
-                        text-align: center;">
-                            <p class="currency">R </p>
-                            <p class="price" style="justify-content: center;">3 500</p>
-                        </div>
-
-                        <div class="wishlist-stock-status" style="display: flex; padding: 30px; width: 470px; 
-                        justify-content: center;
-                        text-align: center;">
-                            <p class="price" style="padding-left: 90px;">In Stock</p>
-                        </div>
-                        <i class="bi bi-cart3" id="cart" ></i>
-                    </div>
-
-                    <div class="a-product-from-wishlist" style="width: 100%; height: 100px; margin-top: 20px; display:flex; ">
-                        <div>
-                            <i class="bi bi-trash"></i>
-                        </div>
-                        <div class="product-name-wishlist" style="display: flex; margin-left: 50px; width: 400px;">
-                            <div class="product-wishlist-image" style="background: url('https://assets.dyler.com/uploads/posts/393/images/11139/rims-made-by-bbs.jpeg');
-                            background-position: center;
-                            background-repeat: no-repeat;
-                            background-size: cover;
-                            height: 70px; width: 70px;"></div>
-                            <p style="margin-top: 20px; margin-left: 20px; font-style: bolder;">BBS Chrome Wheels 17"</p>
-                        </div>
-
-                        <div class="wishlist-unit-price" style="display: flex; padding: 30px; width: 400px; 
-                        justify-content: center;
-                        text-align: center;">
-                            <p class="currency">R </p>
-                            <p class="price" style="justify-content: center;">3 500</p>
-                        </div>
-
-                        <div class="wishlist-stock-status" style="display: flex; padding: 30px; width: 470px; 
-                        justify-content: center;
-                        text-align: center;">
-                            <p class="price" style="padding-left: 90px;">In Stock</p>
-                        </div>
-                        <i class="bi bi-cart3" id="cart" ></i>
-                    </div>
-
-                    <div class="a-product-from-wishlist" style="width: 100%; height: 100px; margin-top: 20px; display:flex; ">
-                        <div>
-                            <i class="bi bi-trash"></i>
-                        </div>
-                        <div class="product-name-wishlist" style="display: flex; margin-left: 50px; width: 400px;">
-                            <div class="product-wishlist-image" style="background: url('https://assets.dyler.com/uploads/posts/393/images/11139/rims-made-by-bbs.jpeg');
-                            background-position: center;
-                            background-repeat: no-repeat;
-                            background-size: cover;
-                            height: 70px; width: 70px;"></div>
-                            <p style="margin-top: 20px; margin-left: 20px; font-style: bolder;">BBS Chrome Wheels 17"</p>
-                        </div>
-
-                        <div class="wishlist-unit-price" style="display: flex; padding: 30px; width: 400px; 
-                        justify-content: center;
-                        text-align: center;">
-                            <p class="currency">R </p>
-                            <p class="price" style="justify-content: center;">3 500</p>
-                        </div>
-
-                        <div class="wishlist-stock-status" style="display: flex; padding: 30px; width: 470px; 
-                        justify-content: center;
-                        text-align: center;">
-                            <p class="price" style="padding-left: 90px;">In Stock</p>
-                        </div>
-                        <i class="bi bi-cart3" id="cart" ></i>
-                    </div>
-                </div>
+            <div class="wishlist-products" id="wishlist-products">
 
             </div>
         </div>
