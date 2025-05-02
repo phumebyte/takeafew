@@ -47,8 +47,8 @@ function displayProducts(products) {
           <div class="reviews"><i class="bi bi-star-fill"></i> ${item.rating}</div>
           <div class="title">${item.title}</div>
           <div class="price-div">
-            <div class="price">R${item.price}</div>
-            <div class="higher-price">${item.higherPrice}</div>
+            <div class="price">R${(item.price - (item.price * (item.discountPercentage / 100))).toFixed(2)}</div>
+            <div class="higher-price">${item.price}</div>
           </div>
           <div class="btn-group">
             <button class="btn-primary" id="addbutton" data-id="${item.id}">Add to Cart</button>
@@ -95,7 +95,7 @@ function displayProducts(products) {
           <img class="product-image" src="${product.thumbnail}" alt="${product.title}">
           <div class="details">
             <div class="title"><h2>${product.title}</h2></div>
-            <div class="price">R${product.price}</div>
+            <div class="price">R${(product.price - (product.price * (product.discountPercentage / 100))).toFixed(2)}</div>
             <div class="description">${product.description}</div>
             <div class="categoryName"><strong>Category: </strong>${product.category}</div>
             <div class="discount"><strong>Discount: </strong>${product.discountPercentage}%</div>
