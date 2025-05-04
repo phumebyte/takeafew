@@ -34,6 +34,44 @@ const closeCartDialog = document.getElementById('cart-close-btn')
   const closeLoginBtn = document.getElementById('login-back-btn')
 
   viewLoginBtn.addEventListener('click', () => {
+    const user = JSON.parse(localStorage.getItem('user'))
+    const isLoggedIn = localStorage.getItem('loggedIn') === 'true'
+
+    if(isLoggedIn && user){
+      const loginDialogContent = document.getElementById('login-dialog-content')
+      loginDialogContent.innerHTML = `
+        <h2>Welcome back, ${user.firstName}! You are logged in!</h2>
+        <button id="logout-btn" class="btn-primary">Logout</button>
+      `
+
+      //Logout button functionality
+      const logoutBtn = document.getElementById('logout-btn')
+      logoutBtn.addEventListener('click', () => {
+        localStorage.removeItem('loggedIn')
+        localStorage.removeItem('user')
+        alert('User successfully logged out')
+        viewLoginDialog.close()
+      })
+    } else {
+      // Reset to the default login form if not logged in
+    const loginDialogContent = document.getElementById('login-dialog-content');
+    loginDialogContent.innerHTML = `
+      <form>
+        <label for="login-email">Email:</label>
+        <input type="email" id="login-email" required>
+        <label for="login-password">Password:</label>
+        <input type="password" id="login-password" required>
+        <button id="submit-login" class="btn-primary">Login</button>
+      </form>
+    `;
+
+    // Reattach the login event listener
+    const submitLogin = document.getElementById('submit-login');
+    submitLogin.addEventListener('click', (event) => {
+      event.preventDefault();
+      loginUser();
+    });
+    }
     viewLoginDialog.showModal()
   })
 
