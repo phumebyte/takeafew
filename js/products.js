@@ -48,10 +48,9 @@ function displayProducts(products) {
           <div class="title">${item.title}</div>
           <div class="price-div">
             <div class="price">R${(item.price - (item.price * (item.discountPercentage / 100))).toFixed(2)}</div>
-            <button class="btn-primary add-to-cart" data-id="${item.id}">Add to Cart</button>
           </div>
           <div class="btn-group">
-            <button class="btn-primary" id="addbutton-${item.id}" data-id="${item.id}">Add to Cart</button>
+             <button class="btn-primary add-to-cart" data-id="${item.id}">Add to Cart</button>
             <button class="btn-primary wishlist-toggle" data-id="${item.id}"><i class="bi bi-heart"></i></button>
           </div>
         </div>
@@ -202,7 +201,7 @@ function updateCartCount() {
     // Add or remove the 'empty' class based on the cart count
     if (totalItems === 0) {
       cartCounterDisplay.classList.add('empty')
-      cartCounterDisplay.textContent = '' // Clear the count display when empty
+      cartCounterDisplay.textContent = '0' // Set to 0 when empty
     } else {
       cartCounterDisplay.classList.remove('empty')
     }
@@ -292,10 +291,6 @@ function addToWishlist(productId){
   }
   return false
 }
-
-
-
-
 
 function updateQuantity(productId, change) {
   const item = cart.find(item => item.id === productId);
