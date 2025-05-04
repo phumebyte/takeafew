@@ -79,9 +79,9 @@ function displayProducts(products) {
         const item = product.reviews[i];
        reviewsHTML += `
               <div class="reviews" id=reviews>
-                <p>${item[i].reviewerName}  (<strong>${item[i].reviewerEmail}</strong>)</p> 
-                <p>Rating: ${item[i].rating}/5 STARS</p>
-                <p>Comment: ${item[i].comment}</p>
+                <p>${item.reviewerName}  (<strong>${item.reviewerEmail}</strong>)</p> 
+                <p>Rating: ${item.rating}/5 STARS</p>
+                <p>Comment: ${item.comment}</p>
                 <div>
                   <br>
                 </div>
