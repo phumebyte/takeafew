@@ -1,16 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
-  getProducts()
-  displayWishlist(wishlist)
-})
+  getProducts();
+  displayWishlist(wishlist);
+  updateCartCount();
 
-document.addEventListener('DOMContentLoaded', () => {
-  updateCartCount()
-
-  const cartButton = document.getElementById('addbutton')
-  if (cartButton){
-    cartButton.addEventListener('click', showCheckoutDialog)
-  }
-})
+  const cartButtons = document.querySelectorAll('.add-to-cart');
+  cartButtons.forEach(button => {
+    button.addEventListener('click', (event) => {
+      const productId = parseInt(event.target.dataset.id);
+      addToCart(productId);
+    });
+  });
+});
 
 let wishlist = []
 let cart = []
@@ -48,19 +48,17 @@ function displayProducts(products) {
           <div class="title">${item.title}</div>
           <div class="price-div">
             <div class="price">R${(item.price - (item.price * (item.discountPercentage / 100))).toFixed(2)}</div>
-            <div class="higher-price">${item.price}</div>
+            <button class="btn-primary add-to-cart" data-id="${item.id}">Add to Cart</button>
           </div>
           <div class="btn-group">
-            <button class="btn-primary" id="addbutton" data-id="${item.id}">Add to Cart</button>
-            <button class="btn-primary" id="wishlist-toggle-${item.id}" id="heart"><i class="bi bi-heart" id="open-heart" ></i></button>
+            <button class="btn-primary" id="addbutton-${item.id}" data-id="${item.id}">Add to Cart</button>
+            <button class="btn-primary wishlist-toggle" data-id="${item.id}"><i class="bi bi-heart"></i></button>
           </div>
         </div>
       </div>
     `;
 
-    displayWishlist(wishlist)
-      
-    
+  displayWishlist(wishlist);
 }
 
   // Use event delegation to handle clicks on product images
@@ -78,8 +76,8 @@ function displayProducts(products) {
       let reviewsHTML = '<h3>Reviews</h3>'
 
       for (let i = 0; i < product.reviews.length; i++) {
-        const item = product.reviews;
-       reviewsHTML +=`
+        const item = product.reviews[i];
+       reviewsHTML += `
               <div class="reviews" id=reviews>
                 <p>${item[i].reviewerName}  (<strong>${item[i].reviewerEmail}</strong>)</p> 
                 <p>Rating: ${item[i].rating}/5 STARS</p>
@@ -105,7 +103,7 @@ function displayProducts(products) {
             <div class="stock"><strong>Product in Stock: </strong>${product.stock}</div>
             <div class="minimumOrderQuantity"><strong>Minimum Order Quantity: </strong>${product.minimumOrderQuantity}</div>
             <button class="btn-primary" onclick="addToCart(${product.id})">Add to Cart</button>
-            <button class="btn-primary" id="addWishlistDetail" onclick="addToWishlist(${product.id}">Add to Wishlist</button>
+            <button class="btn-primary" id="addWishlistDetail" onclick="addToWishlist(${product.id})">Add to Wishlist</button>
             <div class="reviews" id=reviews>
               ${reviewsHTML}
             </div>
@@ -133,7 +131,7 @@ function displayProducts(products) {
 
     const target = event.target
 
-    if(target.classList.contains('add-to-cart') || target.closest('.add-to.cart')){
+    if(target.classList.contains('add-to-cart') || target.closest('.add-to-cart')){
       event.preventDefault();
       event.stopPropagation();
 
@@ -149,7 +147,7 @@ function displayProducts(products) {
         }, 1000);
       }
     }
-    if (target.classList.contains('wishlist_toggle') || target.classList.contains('bi-heart') || target.closest('wishlist-toggle')) {
+    if (target.classList.contains('wishlist-toggle') || target.classList.contains('bi-heart') || target.closest('.wishlist-toggle')) {
       console.log(wishlist);
       event.preventDefault();
       event.stopPropagation();
@@ -172,6 +170,45 @@ function displayProducts(products) {
     const viewProductDialog = document.getElementById('view-product-dialog');
     viewProductDialog.close();
   });
+}
+
+function addToCart(productId) {
+  const product = products.find(p => p.id === productId);
+  if (!product) return false;
+ 
+  const existingItem = cart.find(item => item.id === productId);
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({
+      ...product,
+      quantity: 1
+    });
+   
+  }
+ 
+  updateCartCount();
+  renderCheckoutDialog();
+  return true;
+}
+
+function updateCartCount() {
+  const totalItems = cart.reduce((total, item) => total + item.quantity, 0)
+  const cartCounterDisplay = document.getElementById('numberCount')
+
+  if (cartCounterDisplay) {
+    cartCounterDisplay.textContent = totalItems;
+
+    // Add or remove the 'empty' class based on the cart count
+    if (totalItems === 0) {
+      cartCounterDisplay.classList.add('empty')
+      cartCounterDisplay.textContent = '' // Clear the count display when empty
+    } else {
+      cartCounterDisplay.classList.remove('empty')
+    }
+  } else {
+    console.error('Cart counter display element not found!')
+  }
 }
 
 function displayWishlist() {
@@ -256,40 +293,9 @@ function addToWishlist(productId){
   return false
 }
 
-function addToCart(productId) {
-  const product = products.find(p => p.id === productId);
-  if (!product) return false;
- 
-  const existingItem = cart.find(item => item.id === productId);
-  if (existingItem) {
-    existingItem.quantity += 1;
-  } else {
-    cart.push({
-      ...product,
-      quantity: 1
-    });
-   
-  }
- 
-  updateCartCount();
-  renderCheckoutDialog();
-  return true;
-}
 
-function updateCartCount(){
-  const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-  const cartCounterDisplay = document.getElementById('numberCount');
-  
-  if (cartCounterDisplay) {
-      cartCounterDisplay.textContent = totalItems;
-      
-      if (totalItems === 0) {
-          cartCounterDisplay.classList.add('empty');
-      } else {
-          cartCounterDisplay.classList.remove('empty');
-      }
-  }
-}
+
+
 
 function updateQuantity(productId, change) {
   const item = cart.find(item => item.id === productId);
@@ -419,7 +425,7 @@ function updateStock(updatedId, newStock) {
   }
 }
 
-function totalPrice([cart]) {
+function totalPrice(cart) {
   let total = 0;
   for (let i = 0; i < cart.length; i++) {
     if (cart[i].product.minimumOrderQuantity < cart[i].count) {
