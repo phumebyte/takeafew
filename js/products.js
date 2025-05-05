@@ -48,6 +48,7 @@ function displayProducts(products) {
           <div class="title">${item.title}</div>
           <div class="price-div">
             <div class="price">R${(item.price - (item.price * (item.discountPercentage / 100))).toFixed(2)}</div>
+            <div class="higher-price">R${item.price}</div>
           </div>
           <div class="btn-group">
              <button class="btn-primary add-to-cart" data-id="${item.id}">Add to Cart</button>
