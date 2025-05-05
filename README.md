@@ -74,7 +74,7 @@ This project is a fully functional **E-Commerce web application** built using **
 
 1. **Clone the repository**  
    ```bash
-   git clone https://github.com/your-username/ecommerce-app.git
+   git clone https://github.com/phumebyte/takeafew.git
    ```
 
 2. **Install dependancies**
