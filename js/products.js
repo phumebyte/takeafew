@@ -336,17 +336,17 @@ function renderCheckoutDialog() {
             background-repeat: no-repeat;">
           </div>
         </div>
- 
+
         <div class="right-product" style="margin-top: 0px; padding: 30px;">
           <p>${product.title}</p>
           <div class="counterProduct" style="display: flex; padding-top: 30px;">
-            <div class="decrementButton" onclick="updateQuantity(${product.id}, -1)" style="border-radius: 100%; cursor: pointer; border: solid 1px black; padding: 10px; width: 40px; height: 40px;">
+            <div class="decrementButton" data-id="${product.id}" style="border-radius: 100%; cursor: pointer; border: solid 1px black; padding: 10px; width: 40px; height: 40px;">
               <p style="margin-left: 5px">-</p>
             </div>
             <div class="crementedAmount" style="margin-left: 10px; padding: 10px; margin-right: 10px;">${product.quantity}</div>
-            <div class="incrementButton" onclick="updateQuantity(${product.id}, 1)" style="border-radius: 50%; cursor: pointer; border: solid 1px black; padding: 10px; width: 40px; height: 40px;">
+            <div class="incrementButton" data-id="${product.id}" style="border-radius: 50%; cursor: pointer; border: solid 1px black; padding: 10px; width: 40px; height: 40px;">
               <p style="margin-left: 5px">+</p>
-            </div>
+            </div>s
           </div>
           <div style="display: flex; margin-top: 20px;">
             <p>R ${itemTotal.toFixed(2)}</p>
@@ -354,8 +354,23 @@ function renderCheckoutDialog() {
         </div>
       </div>
     `;
- 
+
     checkoutContainer.innerHTML += productHTML;
+  });
+
+  // Add event listeners for increment and decrement buttons
+  checkoutContainer.querySelectorAll('.decrementButton').forEach(button => {
+    button.addEventListener('click', () => {
+      const productId = parseInt(button.dataset.id);
+      updateQuantity(productId, -1);
+    });
+  });
+
+  checkoutContainer.querySelectorAll('.incrementButton').forEach(button => {
+    button.addEventListener('click', () => {
+      const productId = parseInt(button.dataset.id);
+      updateQuantity(productId, 1);
+    });
   });
  
    // Update totals

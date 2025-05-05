@@ -1,10 +1,7 @@
 // IMPORTS
-import { toggleWishlist , updateCartCount} from "./products.js";
+import { toggleWishlist , updateCartCount, updateQuantity} from "./products.js";
 
 // MODALS
-const viewProductDialog = document.getElementById("view-product-dialog");
-const closeProductDialog = document.getElementById("close-view-modal");
-
 const viewCartModalBtn = document.getElementById('cart')
 const viewCartDialog = document.getElementById('cart-dialog')
 const closeCartDialog = document.getElementById('cart-close-btn')
@@ -91,6 +88,8 @@ const closeCartDialog = document.getElementById('cart-close-btn')
     viewRegisterDialog.close()
   })
 
+  // REGISTER & LOGIN FUNCTIONALITY
+
   const submitRegister = document.getElementById('submit-register')
 
   submitRegister.addEventListener('click', (event) => {
@@ -148,4 +147,5 @@ const closeCartDialog = document.getElementById('cart-close-btn')
       alert('Something went wrong')
     }
   }
+
 
