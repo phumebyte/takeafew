@@ -96,6 +96,35 @@ function displayProducts(products) {
             
           </div>
         `;
+
+        // After populating the modal content
+        const addToCartButton = document.querySelector('.btn-primary[onclick^="addToCart"]');
+        const addToWishlistButton = document.getElementById('addWishlistDetail');
+
+        // Add event listener for "Add to Cart" button
+        if (addToCartButton) {
+          addToCartButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            const productId = parseInt(addToCartButton.getAttribute('onclick').match(/\d+/)[0]);
+            addToCart(productId);
+            console.log(`Product with ID ${productId} added to cart`);
+          });
+        } else {
+          console.error('Add to Cart button not found');
+        }
+
+        // Add event listener for "Add to Wishlist" button
+        if (addToWishlistButton) {
+          addToWishlistButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            const productId = parseInt(addToWishlistButton.getAttribute('onclick').match(/\d+/)[0]);
+            addToWishlist(productId);
+            displayWishlist();
+            console.log(`Product with ID ${productId} added to wishlist`);
+          });
+        } else {
+          console.error('Add to Wishlist button not found');
+        }
     
       }
         // Show the modal
@@ -294,7 +323,7 @@ function renderCheckoutDialog() {
             <div class="crementedAmount" style="margin-left: 10px; padding: 10px; margin-right: 10px;">${product.quantity}</div>
             <div class="incrementButton" data-id="${product.id}" style="border-radius: 50%; cursor: pointer; border: solid 1px black; padding: 10px; width: 40px; height: 40px;">
               <p style="margin-left: 5px">+</p>
-            </div>s
+            </div>
           </div>
           <div style="display: flex; margin-top: 20px;">
             <p>R ${itemTotal.toFixed(2)}</p>
