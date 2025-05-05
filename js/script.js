@@ -305,8 +305,8 @@ function renderCheckoutDialog() {
       <div class="a-product" style="display: flex;">
         <div class="left-product" style="margin-top: 20px; height: 180px;">
           <div class="image-checkout" style="
-            width: 160px;
-            height: 180px;
+            width: 120px;
+            height: 140px;
             background: url('${product.thumbnail}');
             background-size: cover;
             background-position: center;
@@ -314,8 +314,8 @@ function renderCheckoutDialog() {
           </div>
         </div>
 
-        <div class="right-product" style="margin-top: 0px; padding: 30px;">
-          <p>${product.title}</p>
+        <div class="right-product" style="margin-top: 0px; padding: 20px;">
+          <p><strong>${product.title}</strong></p>
           <div class="counterProduct" style="display: flex; padding-top: 30px;">
             <div class="decrementButton" data-id="${product.id}" style="border-radius: 100%; cursor: pointer; border: solid 1px black; padding: 10px; width: 40px; height: 40px;">
               <p style="margin-left: 5px">-</p>
@@ -353,7 +353,6 @@ function renderCheckoutDialog() {
    // Update totals
    document.querySelector('.priceTotal').textContent = `R ${total.toFixed(2)}`;
  
-   
 }
 
 function toggleWishlist(productId, button) {
@@ -562,6 +561,32 @@ const closeCartDialog = document.getElementById('cart-close-btn')
       alert('Invalid email or password');
     }
   }
+
+  // CHECKOUT FUNCTIONALITY
+  const checkoutBtn = document.getElementById('checkout-btn')
+
+  checkoutBtn.addEventListener('click', ()=> {
+    const isLoggedIn = localStorage.getItem('loggedIn')
+
+    if(isLoggedIn === 'true'){
+      alert('Proceeding to checkout...')
+      cart.length = 0
+      updateCartCount()
+      renderCheckoutDialog()
+      alert('Checkout successful!')
+    } else {
+      alert('Please login to proceed to checkout')
+    }
+  })
+
+  // CLEAR ALL FUNCTIONALITY
+  const clearAllBtn = document.getElementById('clear-all-button')
+
+  clearAllBtn.addEventListener('click', () => {
+    cart.length = 0
+    updateCartCount()
+    renderCheckoutDialog()
+  })
 
   export { renderCheckoutDialog, updateCartCount, displayWishlist, displayProducts, toggleWishlist };
 
