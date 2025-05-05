@@ -1,20 +1,20 @@
 // IMPORTS
-import { cart, products, getProducts, removeFromWishlist, addToCartFromWishlist, wishlist, updateQuantity, addToCart, addToWishlist} from "./products.js";
-
+import { cart, products, getProducts, removeFromWishlist, addToCartFromWishlist, wishlist, updateQuantity, addToCart, addToWishlist } from "./products.js";
 
 document.addEventListener('DOMContentLoaded', () => {
   getProducts();
   displayWishlist(wishlist);
   updateCartCount();
+  updateUserManagement();
 
   const cartButtons = document.querySelectorAll('.add-to-cart');
   cartButtons.forEach(button => {
     button.addEventListener('click', (event) => {
       const productId = parseInt(event.target.dataset.id);
       addToCart(productId);
-    });
-  });
-});
+    })
+  })
+})
 
 function displayProducts(products) {
   const productContainer = document.getElementById('allproducts');
@@ -381,6 +381,109 @@ function toggleWishlist(productId, button) {
   displayWishlist(); // Update the wishlist display
 }
 
+function updateUserManagement() {
+  const user = JSON.parse(localStorage.getItem('user'));
+  const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
+  const userManagement = document.getElementById('user-management');
+  const loginDialogContent = document.getElementById('login-dialog-content');
+  const viewLoginDialog = document.getElementById('login-dialog');
+  const viewRegisterDialog = document.getElementById('register-dialog');
+  const closeRegisterDialog = document.getElementById('register-back-btn');
+  const closeLoginDialog = document.getElementById('login-back-btn');
+
+  if (closeRegisterDialog) {
+    closeRegisterDialog.addEventListener('click', () => {
+      const viewRegisterDialog = document.getElementById('register-dialog');
+      if (viewRegisterDialog) viewRegisterDialog.close();
+    })
+  }
+  
+  if (closeLoginDialog) {
+    closeLoginDialog.addEventListener('click', () => {
+      const viewLoginDialog = document.getElementById('login-dialog');
+      if (viewLoginDialog) viewLoginDialog.close();
+    })
+  }
+
+  if (isLoggedIn && user) {
+    // Update the user management section for logged-in users
+    userManagement.innerHTML = `
+      <i class="bi bi-person-circle" id="user-icon"></i>
+      <p>${user.firstName}</p>
+    `;
+
+    // Attach event listener to the user icon
+    const userIcon = document.getElementById('user-icon');
+    if (userIcon) {
+      userIcon.addEventListener('click', () => {
+        loginDialogContent.innerHTML = `
+          <h2>Welcome back, ${user.firstName}! You are logged in!</h2>
+          <button id="logout-btn" class="btn-primary">Logout</button>
+        `;
+
+        // Attach logout functionality
+        const logoutBtn = document.getElementById('logout-btn');
+        if (logoutBtn) {
+          logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('loggedIn');
+            localStorage.removeItem('user');
+            alert('User successfully logged out');
+            updateUserManagement(); // Refresh user management after logout
+            viewLoginDialog.close();
+          });
+        }
+
+        viewLoginDialog.showModal();
+      });
+    }
+  } else {
+    // Update the user management section for non-logged-in users
+    userManagement.innerHTML = `
+      <div>
+        <a id="login">Login</a>
+      </div>
+      <div>
+        <a id="register-btn">Register</a>
+      </div>
+    `;
+
+    // Attach event listener to the login button
+    const loginButton = document.getElementById('login');
+    if (loginButton) {
+      loginButton.addEventListener('click', () => {
+        loginDialogContent.innerHTML = `
+          <form>
+            <label for="login-email">Email:</label>
+            <input type="email" id="login-email" required>
+            <label for="login-password">Password:</label>
+            <input type="password" id="login-password" required>
+            <button id="submit-login" class="btn-primary">Login</button>
+          </form>
+        `;
+
+        // Attach login functionality
+        const submitLogin = document.getElementById('submit-login');
+        if (submitLogin) {
+          submitLogin.addEventListener('click', (event) => {
+            event.preventDefault();
+            loginUser();
+          });
+        }
+
+        viewLoginDialog.showModal();
+      });
+    }
+
+    // Attach event listener to the register button
+    const registerButton = document.getElementById('register-btn');
+    if (registerButton) {
+      registerButton.addEventListener('click', () => {
+        viewRegisterDialog.showModal();
+      });
+    }
+  }
+}
+
 // MODALS
 const viewCartModalBtn = document.getElementById('cart')
 const viewCartDialog = document.getElementById('cart-dialog')
@@ -394,7 +497,6 @@ const closeCartDialog = document.getElementById('cart-close-btn')
     viewCartDialog.close()
   })
 
-
   const viewWishlistBtn = document.getElementById('wishlist-btn')
   const viewWishlostDialog = document.getElementById('wishlist-dialog')
   const closeWishlistBtn = document.getElementById('close-wishlist-btn')
@@ -407,125 +509,57 @@ const closeCartDialog = document.getElementById('cart-close-btn')
     viewWishlostDialog.close()
   })
 
-  const viewLoginBtn = document.getElementById('login')
-  const viewLoginDialog = document.getElementById('login-dialog')
-  const closeLoginBtn = document.getElementById('login-back-btn')
-
-  viewLoginBtn.addEventListener('click', () => {
-    const user = JSON.parse(localStorage.getItem('user'))
-    const isLoggedIn = localStorage.getItem('loggedIn') === 'true'
-
-    if(isLoggedIn && user){
-      const loginDialogContent = document.getElementById('login-dialog-content')
-      loginDialogContent.innerHTML = `
-        <h2>Welcome back, ${user.firstName}! You are logged in!</h2>
-        <button id="logout-btn" class="btn-primary">Logout</button>
-      `
-
-      //Logout button functionality
-      const logoutBtn = document.getElementById('logout-btn')
-      logoutBtn.addEventListener('click', () => {
-        localStorage.removeItem('loggedIn')
-        localStorage.removeItem('user')
-        alert('User successfully logged out')
-        viewLoginDialog.close()
-      })
-    } else {
-      // Reset to the default login form if not logged in
-    const loginDialogContent = document.getElementById('login-dialog-content');
-    loginDialogContent.innerHTML = `
-      <form>
-        <label for="login-email">Email:</label>
-        <input type="email" id="login-email" required>
-        <label for="login-password">Password:</label>
-        <input type="password" id="login-password" required>
-        <button id="submit-login" class="btn-primary">Login</button>
-      </form>
-    `;
-
-    // Reattach the login event listener
-    const submitLogin = document.getElementById('submit-login');
-    submitLogin.addEventListener('click', (event) => {
-      event.preventDefault();
-      loginUser();
-    });
-    }
-    viewLoginDialog.showModal()
-  })
-
-  closeLoginBtn.addEventListener('click', () => {
-    viewLoginDialog.close()
-  })
-
-  const viewRegisterBtn = document.getElementById('register')
-  const viewRegisterDialog = document.getElementById('register-dialog')
-  const closeRegisterBtn = document.getElementById('register-back-btn')
-
-  viewRegisterBtn.addEventListener('click', () => {
-    viewRegisterDialog.showModal()
-  })
-
-  closeRegisterBtn.addEventListener('click', () => {
-    viewRegisterDialog.close()
-  })
-
   // REGISTER & LOGIN FUNCTIONALITY
+  const submitRegister = document.getElementById('submit-register');
+  if (submitRegister) {
+    submitRegister.addEventListener('click', (event) => {
+      event.preventDefault();
+      registerUser();
+    });
+  }
 
-  const submitRegister = document.getElementById('submit-register')
-
-  submitRegister.addEventListener('click', (event) => {
-    event.preventDefault()
-
-    registerUser()
-  })
-
-  function registerUser(){
-    const firstName = document.getElementById('name').value
-    const lastName = document.getElementById('lastName').value
-    const email = document.getElementById('register-email').value
-    const cellphone = document.getElementById('cellphone').value
-    const password = document.getElementById('register-password').value
-    const confirmedPassword = document.getElementById('confirmed-password').value
-
-    if(!email || !password){
-      alert('Please enter all fields')
-      return
+  function registerUser() {
+    const firstName = document.getElementById('name').value;
+    const lastName = document.getElementById('lastName').value;
+    const email = document.getElementById('register-email').value;
+    const cellphone = document.getElementById('cellphone').value;
+    const password = document.getElementById('register-password').value;
+    const confirmedPassword = document.getElementById('confirmed-password').value;
+  
+    if (!email || !password) {
+      alert('Please enter all fields');
+      return;
     }
-
-    console.log(firstName + " " + lastName + " " + email + " " + password + " " + cellphone) 
-
-    if(firstName && lastName && email && email && cellphone && password && confirmedPassword){
+  
+    if (firstName && lastName && email && cellphone && password && confirmedPassword) {
       localStorage.setItem("user", JSON.stringify({
         firstName: firstName,
         lastName: lastName,
         email: email,
         password: password
-      }))
-
-      viewRegisterDialog.close()
+      }));
+  
+      alert('User successfully registered');
+      const viewRegisterDialog = document.getElementById('register-dialog');
+      viewRegisterDialog.close();
+      updateUserManagement(); // Refresh user management after registration
     }
   }
 
-  const submitLogin = document.getElementById('submit-login')
+  function loginUser() {
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
   
-  submitLogin.addEventListener('click', (event) => {
-    event.preventDefault()
-
-    loginUser()
-  })
-
-  function loginUser(){
-    const email = document.getElementById('login-email').value
-    const password = document.getElementById('login-password').value
-
-    let user = JSON.parse(localStorage.getItem('user'))
-
-    if(user.email === email && user.password){
-      localStorage.setItem('loggedIn', true)
-      alert('User successfully logged in')
-      viewLoginDialog.close()
+    const user = JSON.parse(localStorage.getItem('user'));
+  
+    if (user && user.email === email && user.password === password) {
+      localStorage.setItem('loggedIn', 'true');
+      alert('User successfully logged in');
+      updateUserManagement(); // Refresh user management after login
+      const viewLoginDialog = document.getElementById('login-dialog');
+      viewLoginDialog.close();
     } else {
-      alert('Something went wrong')
+      alert('Invalid email or password');
     }
   }
 

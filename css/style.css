@@ -135,6 +135,12 @@ nav .right i:hover {
   font-weight: bold;
 }
 
+.user-management {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
 /* CATEGORY LIST */
 .category-list {
   background: var(--primary100);
