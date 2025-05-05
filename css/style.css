@@ -327,7 +327,7 @@ footer {
 
 /* CART */
 .cart-dialog {
-  margin: 0;
+  margin: 0%;
   top: 4.1rem;
   right: 0;
   position: absolute;
@@ -336,6 +336,7 @@ footer {
   background: var(--white);
   padding: var(--space-md);
   overflow-y: auto;
+  
 }
 
 .cart-buttons, .checkout-total {
@@ -351,6 +352,7 @@ footer {
 
 .close-cart-btn {
   background: var(--primary100);
+  background: transparent;
 
 }
 
@@ -536,5 +538,9 @@ input:focus {
 
 .bounce {
   animation: bounce 0.9s ease;
+}
+
+.close-wishlist-btn{
+  background: transparent;
 }
 
