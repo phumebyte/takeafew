@@ -345,7 +345,13 @@ footer {
   
 }
 
-.cart-buttons, .checkout-total {
+.close-cart-div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
+ .cart-buttons, .checkout-total {
   display: flex;
   justify-content: space-between;
   margin-top: var(--space-md);
@@ -359,7 +365,8 @@ footer {
 .close-cart-btn {
   background: var(--primary100);
   background: transparent;
-
+  margin-top: - var(--space-sm);
+  cursor: pointer;
 }
 
 .checkout-btn {
@@ -367,17 +374,15 @@ footer {
 }
 
 .clear-all-button{
-  padding: 0.7rem 1.5rem;
   font-size: 1rem;
   background: #d06b6b;
   cursor: pointer;
-  float: right;
   border-radius: 4px;
-  margin-top: -2.5rem;
   color: white;
   border: none;
-  display: flex
   }
+
+
   .bi-x-lg{
   color: var(--gray150);
   }
