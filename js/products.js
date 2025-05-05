@@ -1,4 +1,4 @@
-import { renderCheckoutDialog, updateCartCount, displayWishlist, displayProducts, toggleWishlist } from "./script.js";
+import { renderCheckoutDialog, updateCartCount, displayWishlist, displayProducts } from "./script.js";
 
 let wishlist = []
 let cart = []

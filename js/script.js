@@ -330,23 +330,26 @@ function renderCheckoutDialog() {
 function toggleWishlist(productId, button) {
   const product = products.find(p => p.id === productId);
   if (!product) return;
- 
+
   const heartIcon = button.querySelector('i');
   const isInWishlist = wishlist.some(item => item.id === productId);
- 
+
   if (isInWishlist) {
-    // Remove from wishlist
-    wishlist = wishlist.filter(item => item.id !== productId);
+    // Remove from wishlist without reassigning the array
+    const index = wishlist.findIndex(item => item.id === productId);
+    if (index !== -1) {
+      wishlist.splice(index, 1); // Remove the item from the array
+    }
     heartIcon.classList.remove('bi-heart-fill');
     heartIcon.classList.add('bi-heart');
   } else {
-    // Add to wishlist using the addToWishlist function
-    addToWishlist(productId);
+    // Add to wishlist
+    wishlist.push({ ...product });
     heartIcon.classList.remove('bi-heart');
     heartIcon.classList.add('bi-heart-fill');
   }
- 
-  displayWishlist();
+
+  displayWishlist(); // Update the wishlist display
 }
 
 // MODALS
