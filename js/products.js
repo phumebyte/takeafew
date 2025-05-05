@@ -253,7 +253,7 @@ function displayWishlist() {
         <p>${item.stock > 0 ? 'In Stock' : 'Out of Stock'}</p>
       </div>
       <div class="wishlist-add-to-cart" style="width: 100px; text-align: center;">
-        <i class="bi bi-cart3 wishlist-add-cart" data-id="${item.id}" style="cursor: pointer;"></i>
+        <i class="bi bi-cart3 wishlist-add-cart" id="wishlist-add-cart" data-id="${item.id}" style="cursor: pointer;"></i>
       </div>
     `;
  
@@ -270,9 +270,44 @@ function displayWishlist() {
   document.querySelectorAll('.wishlist-add-cart').forEach(button => {
     button.addEventListener('click', (e) => {
       const productId = parseInt(e.target.dataset.id);
-      addToCartFromWishlist(productId);
+      if (!isNaN(productId)) {
+        addToCartFromWishlist(productId);
+
+        console.log('bounce target:', e.target)
+
+        // Bounce animation
+        const cartIcon = e.target
+        cartIcon.classList.add('bounce');
+        cartIcon.addEventListener('animationend', () => {
+          cartIcon.classList.remove('bounce');
+        }, { once: true }); 
+      } else {
+        console.error('Invalid product ID');
+      }
     });
   });
+}
+
+function addToCartFromWishlist(productId) {
+  const product = wishlist.find(item => item.id === productId);
+  if (!product) {
+    console.error('Product not found in wishlist');
+    return;
+  }
+
+  // Add the product to the cart
+  const existingItem = cart.find(item => item.id === productId);
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({ ...product, quantity: 1 });
+  }
+
+  // Update the cart count and render the checkout dialog
+  updateCartCount();
+  renderCheckoutDialog();
+
+  console.log(`Product with ID ${productId} added to cart from wishlist`);
 }
 
 function removeFromWishlist(productId){
