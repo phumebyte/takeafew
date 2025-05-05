@@ -14,6 +14,7 @@ const closeCartDialog = document.getElementById('cart-close-btn')
     viewCartDialog.close()
   })
 
+
   const viewWishlistBtn = document.getElementById('wishlist-btn')
   const viewWishlostDialog = document.getElementById('wishlist-dialog')
   const closeWishlistBtn = document.getElementById('close-wishlist-btn')

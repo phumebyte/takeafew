@@ -358,6 +358,22 @@ footer {
   background: var(--green100);
 }
 
+.clear-all-button{
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  background: #d06b6b;
+  cursor: pointer;
+  float: right;
+  border-radius: 4px;
+  margin-top: -2.5rem;
+  color: white;
+  border: none;
+  display: flex
+  }
+  .bi-x-lg{
+  color: var(--gray150);
+  }
+
 /* WISHLIST */
 .a-product-from-wishlist {
   display: flex;
