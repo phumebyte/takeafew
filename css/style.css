@@ -584,3 +584,8 @@ input:focus {
   padding: 2% 2%;
   height: 65%;
 }
+
+.category-list button {
+  background-color: transparent;
+  padding: 0.2%;
+}
