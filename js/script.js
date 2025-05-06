@@ -649,7 +649,11 @@ const closeCartDialog = document.getElementById('cart-close-btn')
         });
       }
     });
-  });
+  })
+
+  // SEARCH FUNCTIONALITY
+  const searchInput = document.getElementById('searchinput')
+  const searchBtn = document.getElementById('search')
 
 export { renderCheckoutDialog, updateCartCount, displayWishlist, displayProducts, toggleWishlist, saveCartToLocalStorage };
 
