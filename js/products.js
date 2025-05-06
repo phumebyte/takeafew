@@ -105,34 +105,4 @@ function deleteFromCart(deleteId) {
   }
 }
 
-//category 
-
-document.addEventListener('DOMContentLoaded', () => {
-  getProducts();
-  displayWishlist(wishlist);
-
-  const allCategoryBtn = document.getElementById('allCategoryBtn');
-  if (allCategoryBtn) {
-    allCategoryBtn.addEventListener('click', () => {
-      displayProducts(products);
-    });
-  }
-  const categories = [
-    { id: 'beautyCategoryBtn', category: 'beauty' },
-    { id: 'fragrancesCategoryBtn', category: 'fragrances' },
-    { id: 'furnitureCategoryBtn', category: 'furniture' },
-    { id: 'groceriesCategoryBtn', category: 'groceries' },
-  ];
-
-  categories.forEach(({ id, category }) => {
-    const categoryBtn = document.getElementById(id);
-    if (categoryBtn) {
-      categoryBtn.addEventListener('click', () => {
-        const filtered = products.filter(p => p.category === category);
-        displayProducts(filtered);
-      });
-    }
-  });
-});
-
 export { addToCartFromWishlist, updateQuantity, removeFromWishlist, wishlist, displayProducts, getProducts, cart, addToCart, deleteFromCart, products, addToWishlist };
