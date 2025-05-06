@@ -14,6 +14,28 @@ document.addEventListener('DOMContentLoaded', () => {
       addToCart(productId);
     })
   })
+
+  // Use event delegation for wishlist-toggle
+  const productContainer = document.getElementById('allproducts');
+  if (productContainer) {
+    productContainer.addEventListener('click', (event) => {
+      const target = event.target;
+
+      if (target.classList.contains('wishlist-toggle') || target.closest('.wishlist-toggle')) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const button = target.closest('.wishlist-toggle');
+        const productId = parseInt(button.dataset.id);
+
+        if (!isNaN(productId)) {
+          toggleWishlist(productId, button);
+        } else {
+          console.error('Invalid product ID for wishlist toggle');
+        }
+      }
+    });
+  }
 })
 
 function displayProducts(products) {
@@ -163,7 +185,6 @@ function displayProducts(products) {
       }
     }
     if (target.classList.contains('wishlist-toggle') || target.classList.contains('bi-heart') || target.closest('.wishlist-toggle')) {
-      console.log(wishlist);
       event.preventDefault();
       event.stopPropagation();
 

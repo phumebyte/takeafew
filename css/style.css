@@ -148,17 +148,21 @@ nav .right i:hover {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: 3.5rem;
-  padding: 0 var(--space-sm);
+  height: 3rem;
+  padding-bottom: 1rem;
 }
 
 .category-list a {
   font-size: 1rem;
 }
 
+.category-list p {
+  margin-top: 1rem;
+}
+
 .category-list a:hover {
   font-size: 1.125rem;
-  transition: var(--transition-sm);
+  transition: var(--transition-md);
   cursor: pointer;
 }
 
