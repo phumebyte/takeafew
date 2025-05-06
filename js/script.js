@@ -7,20 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
   updateCartCount();
   updateUserManagement();
 
-  const cartButtons = document.querySelectorAll('.add-to-cart');
-  cartButtons.forEach(button => {
-    button.addEventListener('click', (event) => {
-      const productId = parseInt(event.target.dataset.id);
-      addToCart(productId);
-    })
-  })
-
-  // Use event delegation for wishlist-toggle
+  // Use event delegation for product container
   const productContainer = document.getElementById('allproducts');
   if (productContainer) {
     productContainer.addEventListener('click', (event) => {
       const target = event.target;
 
+      // Handle wishlist toggle
       if (target.classList.contains('wishlist-toggle') || target.closest('.wishlist-toggle')) {
         event.preventDefault();
         event.stopPropagation();
@@ -32,6 +25,27 @@ document.addEventListener('DOMContentLoaded', () => {
           toggleWishlist(productId, button);
         } else {
           console.error('Invalid product ID for wishlist toggle');
+        }
+      }
+
+      // Handle add-to-cart
+      if (target.classList.contains('add-to-cart') || target.closest('.add-to-cart')) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const button = target.closest('.add-to-cart');
+        const productId = parseInt(button.dataset.id);
+
+        if (!isNaN(productId)) {
+          addToCart(productId);
+          button.classList.add('added-to-cart');
+          button.innerHTML = 'Added!';
+          setTimeout(() => {
+            button.classList.remove('added-to-cart');
+            button.innerHTML = 'Add to Cart';
+          }, 1000);
+        } else {
+          console.error('Invalid product ID for add-to-cart');
         }
       }
     });
@@ -112,7 +126,9 @@ function displayProducts(products) {
             <div class="minimumOrderQuantity"><strong>Minimum Order Quantity: </strong>${product.minimumOrderQuantity}</div>
             <div id="product-modal-btn-group" class="product-modal-btn-group">
               <button class="btn-primary add-to-cart" onclick="addToCart(${product.id})">Add to Cart</button>
-              <button class="btn-primary wishlist-toggle" id="addWishlistDetail" onclick="addToWishlist(${product.id})"><i class="bi bi-heart"></i></button>
+              <button class="btn-primary wishlist-toggle" id="addWishlistDetail" data-id="${product.id}">
+                <i class="bi bi-heart"></i>
+              </button>
             </div>
             <div class="reviews" id=reviews>
               ${reviewsHTML}
@@ -123,13 +139,16 @@ function displayProducts(products) {
 
         // After populating the modal content
         const addToCartButton = document.querySelector('.btn-primary[onclick^="addToCart"]');
-        const addToWishlistButton = document.getElementById('addWishlistDetail');
 
-        // Add event listener for "Add to Cart" button
+        // Remove any existing event listeners to prevent duplicate additions
         if (addToCartButton) {
-          addToCartButton.addEventListener('click', (event) => {
+          const newAddToCartButton = addToCartButton.cloneNode(true);
+          addToCartButton.parentNode.replaceChild(newAddToCartButton, addToCartButton);
+
+          // Add event listener for "Add to Cart" button
+          newAddToCartButton.addEventListener('click', (event) => {
             event.preventDefault();
-            const productId = parseInt(addToCartButton.getAttribute('onclick').match(/\d+/)[0]);
+            const productId = parseInt(newAddToCartButton.getAttribute('onclick').match(/\d+/)[0]);
             addToCart(productId);
             console.log(`Product with ID ${productId} added to cart`);
           });
@@ -137,11 +156,12 @@ function displayProducts(products) {
           console.error('Add to Cart button not found');
         }
 
+        const addToWishlistButton = document.getElementById('addWishlistDetail')
         // Add event listener for "Add to Wishlist" button
         if (addToWishlistButton) {
           addToWishlistButton.addEventListener('click', (event) => {
             event.preventDefault();
-            const productId = parseInt(addToWishlistButton.getAttribute('onclick').match(/\d+/)[0]);
+            const productId = parseInt(addToWishlistButton.dataset.id); // Use the data-id attribute
             toggleWishlist(productId, addToWishlistButton); // Use the toggleWishlist function
             console.log(`Product with ID ${productId} wishlist state toggled`);
           });
@@ -152,54 +172,9 @@ function displayProducts(products) {
       }
         // Show the modal
         viewProductDialog.showModal();
-
-        const addWishlistDetailButton = document.getElementById('addWishlistDetail')
-
-        if(addWishlistDetailButton){
-          addWishlistDetailButton.addEventListener('click', () => {
-            console.log(wishlist)
-            addToWishlist(product.id)
-            displayWishlist()
-          })
-        } else {
-          console.error('addWishList detail button not found')
-        }
       }
     }
-
-    const target = event.target
-
-    if(target.classList.contains('add-to-cart') || target.closest('.add-to-cart')){
-      event.preventDefault();
-      event.stopPropagation();
-
-      const button = target.classList.contains('add-to-cart') ? target : target.closest(".add-to-cart");
-      const productId = parseInt(button.dataset.id);
-
-      if(addToCart(productId)){
-        button.classList.add('added-to-cart');
-        button.innerHTML = 'Added!';
-        setTimeout(() => {
-          button.classList.remove('added-to-cart');
-          button.innerHTML = 'Add to Cart';
-        }, 1000);
-      }
-    }
-    if (target.classList.contains('wishlist-toggle') || target.classList.contains('bi-heart') || target.closest('.wishlist-toggle')) {
-      event.preventDefault();
-      event.stopPropagation();
-
-      const button = target.closest('.wishlist-toggle');
-      const productId = parseInt(button.dataset.id);
-      toggleWishlist(productId, button);
-
-    }
-
-    if (target.classList.contains('product-image')){
-      const productId = parseInt(target.id.split('-')[2]);
-      viewProductDialog(productId);
-    }
-  });
+   });
 
   // Close the modal when the close button is clicked
   const closeProductDialog = document.getElementById('close-view-modal');
@@ -381,20 +356,21 @@ function toggleWishlist(productId, button) {
   const product = products.find(p => p.id === productId);
   if (!product) return;
 
+  // Check if the product is currently in the wishlist
   const isInWishlist = wishlist.some(item => item.id === productId);
 
   if (isInWishlist) {
-    // Remove from wishlist
+    // Remove from wishlist 
     const index = wishlist.findIndex(item => item.id === productId);
     if (index !== -1) {
-      wishlist.splice(index, 1); // Remove the item from the array
+      wishlist.splice(index, 1); 
     }
   } else {
     // Add to wishlist
     wishlist.push({ ...product });
   }
 
-  // Update all wishlist toggle buttons (synchronize state)
+  // Synchronise all the wishlist toggle buttons
   document.querySelectorAll(`.wishlist-toggle[data-id="${productId}"]`).forEach(btn => {
     const heartIcon = btn.querySelector('i');
     if (isInWishlist) {
@@ -406,7 +382,20 @@ function toggleWishlist(productId, button) {
     }
   });
 
-  displayWishlist(); // Update the wishlist display
+  // Update the wishlist button in the product detail modal
+  const modalWishlistButton = document.getElementById('addWishlistDetail');
+  if (modalWishlistButton && parseInt(modalWishlistButton.dataset.id) === productId) {
+    const heartIcon = modalWishlistButton.querySelector('i');
+    if (isInWishlist) {
+      heartIcon.classList.remove('bi-heart-fill');
+      heartIcon.classList.add('bi-heart');
+    } else {
+      heartIcon.classList.remove('bi-heart');
+      heartIcon.classList.add('bi-heart-fill');
+    }
+  }
+
+  displayWishlist(); // Update wishlist display
 }
 
 function updateUserManagement() {

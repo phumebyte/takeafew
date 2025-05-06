@@ -293,6 +293,13 @@ dialog {
   height: 50%;
 }
 
+.product-modal-btn-group {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
 
 /* MODAL BUTTON */
 .modal-button {
@@ -567,26 +574,33 @@ input:focus {
 }
 
 /* Search-bar and button */
-
-.search-bar {
-  width: 30%;
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   height: 65%;
-  margin: 0 auto;
- align-content: center;
 }
 
-#searchContainter input {
-  background-color: whitesmoke;
-  width: 100%;
-  padding: 2% 2%;
+#searchInput {
+  flex: 1; 
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 20rem;
+}
+
+#search {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 #searchContainter button {
-  position: relative;
-  bottom: 3.7rem;
-  right: -2.5rem;
-  padding: 2% 2%;
-  height: 65%;
+  margin: 0;
 }
 
 .category-list button {
