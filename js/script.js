@@ -59,7 +59,7 @@ function displayProducts(products) {
             <div class="higher-price">R${item.price}</div>
           </div>
           <div class="btn-group">
-             <button class="btn-primary add-to-cart" data-id="${item.id}">Add to Cart</button>
+            <button class="btn-primary add-to-cart" data-id="${item.id}">Add to Cart</button>
             <button class="btn-primary wishlist-toggle" data-id="${item.id}"><i class="bi bi-heart"></i></button>
           </div>
         </div>
@@ -110,8 +110,10 @@ function displayProducts(products) {
             <div class="warrantyInformation"><strong>Warranty: </strong>${product.warrantyInformation}</div>
             <div class="stock"><strong>Product in Stock: </strong>${product.stock}</div>
             <div class="minimumOrderQuantity"><strong>Minimum Order Quantity: </strong>${product.minimumOrderQuantity}</div>
-            <button class="btn-primary" onclick="addToCart(${product.id})">Add to Cart</button>
-            <button class="btn-primary" id="addWishlistDetail" onclick="addToWishlist(${product.id})">Add to Wishlist</button>
+            <div id="product-modal-btn-group" class="product-modal-btn-group">
+              <button class="btn-primary add-to-cart" onclick="addToCart(${product.id})">Add to Cart</button>
+              <button class="btn-primary wishlist-toggle" id="addWishlistDetail" onclick="addToWishlist(${product.id})"><i class="bi bi-heart"></i></button>
+            </div>
             <div class="reviews" id=reviews>
               ${reviewsHTML}
             </div>
@@ -140,9 +142,8 @@ function displayProducts(products) {
           addToWishlistButton.addEventListener('click', (event) => {
             event.preventDefault();
             const productId = parseInt(addToWishlistButton.getAttribute('onclick').match(/\d+/)[0]);
-            addToWishlist(productId);
-            displayWishlist();
-            console.log(`Product with ID ${productId} added to wishlist`);
+            toggleWishlist(productId, addToWishlistButton); // Use the toggleWishlist function
+            console.log(`Product with ID ${productId} wishlist state toggled`);
           });
         } else {
           console.error('Add to Wishlist button not found');
@@ -380,23 +381,30 @@ function toggleWishlist(productId, button) {
   const product = products.find(p => p.id === productId);
   if (!product) return;
 
-  const heartIcon = button.querySelector('i');
   const isInWishlist = wishlist.some(item => item.id === productId);
 
   if (isInWishlist) {
-    // Remove from wishlist without reassigning the array
+    // Remove from wishlist
     const index = wishlist.findIndex(item => item.id === productId);
     if (index !== -1) {
       wishlist.splice(index, 1); // Remove the item from the array
     }
-    heartIcon.classList.remove('bi-heart-fill');
-    heartIcon.classList.add('bi-heart');
   } else {
     // Add to wishlist
     wishlist.push({ ...product });
-    heartIcon.classList.remove('bi-heart');
-    heartIcon.classList.add('bi-heart-fill');
   }
+
+  // Update all wishlist toggle buttons (synchronize state)
+  document.querySelectorAll(`.wishlist-toggle[data-id="${productId}"]`).forEach(btn => {
+    const heartIcon = btn.querySelector('i');
+    if (isInWishlist) {
+      heartIcon.classList.remove('bi-heart-fill');
+      heartIcon.classList.add('bi-heart');
+    } else {
+      heartIcon.classList.remove('bi-heart');
+      heartIcon.classList.add('bi-heart-fill');
+    }
+  });
 
   displayWishlist(); // Update the wishlist display
 }
