@@ -1,4 +1,4 @@
-import { renderCheckoutDialog, updateCartCount, displayWishlist, displayProducts } from "./script.js";
+import { renderCheckoutDialog, updateCartCount, displayWishlist, displayProducts, saveCartToLocalStorage} from "./script.js";
 
 let wishlist = []
 let cart = []
@@ -34,6 +34,7 @@ function addToCart(productId) {
  
   updateCartCount();
   renderCheckoutDialog();
+  saveCartToLocalStorage();
   return true;
 }
 
@@ -87,6 +88,7 @@ function updateQuantity(productId, change) {
       cart = cart.filter(item => item.id !== productId);
   }
   
+  saveCartToLocalStorage();
   updateCartCount();
   renderCheckoutDialog();
 }

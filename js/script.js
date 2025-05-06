@@ -2,6 +2,14 @@
 import { cart, products, getProducts, removeFromWishlist, addToCartFromWishlist, wishlist, updateQuantity, addToCart, addToWishlist } from "./products.js";
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Fetch cart from local storage
+  const storedCart = localStorage.getItem('cart')
+  if (storedCart) {
+    cart.length = 0 // Clear the cart array before pushing new items
+    const parsedCart = JSON.parse(storedCart)
+    cart.push(...parsedCart)
+  }
+
   getProducts();
   displayWishlist(wishlist);
   updateCartCount();
@@ -51,6 +59,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 })
+
+function saveCartToLocalStorage() {
+  localStorage.setItem('cart', JSON.stringify(cart))
+}
 
 function displayProducts(products) {
   const productContainer = document.getElementById('allproducts');
@@ -589,6 +601,8 @@ const closeCartDialog = document.getElementById('cart-close-btn')
     if(isLoggedIn === 'true'){
       alert('Proceeding to checkout...')
       cart.length = 0
+
+      saveCartToLocalStorage()
       updateCartCount()
       renderCheckoutDialog()
       alert('Checkout successful!')
@@ -602,6 +616,8 @@ const closeCartDialog = document.getElementById('cart-close-btn')
 
   clearAllBtn.addEventListener('click', () => {
     cart.length = 0
+
+    saveCartToLocalStorage()
     updateCartCount()
     renderCheckoutDialog()
   })
@@ -635,6 +651,6 @@ const closeCartDialog = document.getElementById('cart-close-btn')
     });
   });
 
-export { renderCheckoutDialog, updateCartCount, displayWishlist, displayProducts, toggleWishlist };
+export { renderCheckoutDialog, updateCartCount, displayWishlist, displayProducts, toggleWishlist, saveCartToLocalStorage };
 
 
