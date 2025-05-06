@@ -338,13 +338,13 @@ footer {
   margin: 0%;
   top: 4.1rem;
   right: 0;
-  position: absolute;
+  position: fixed;
   width: 20rem;
   height: 100vh;
   background: var(--white);
   padding: var(--space-md);
   overflow-y: auto;
-
+  z-index: 1000;
 }
 
 .close-cart-div {
