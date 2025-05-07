@@ -429,6 +429,15 @@ footer {
   margin-bottom: var(--space-sm);
 }
 
+.wishlist-clear-all-btn{
+  font-size: 1rem;
+  background: #d06b6b;
+  cursor: pointer;
+  border-radius: 4px;
+  color: white;
+  border: none;
+}
+
 /* REGISTER & LOGIN */
 .register-dialog {
   width: 30%;

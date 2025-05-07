@@ -613,7 +613,7 @@ const closeCartDialog = document.getElementById('cart-close-btn')
 
   // CLEAR ALL FUNCTIONALITY
   const clearAllBtn = document.getElementById('clear-all-button')
-
+  
   clearAllBtn.addEventListener('click', () => {
     cart.length = 0
 
@@ -621,6 +621,36 @@ const closeCartDialog = document.getElementById('cart-close-btn')
     updateCartCount()
     renderCheckoutDialog()
   })
+
+
+  // WISHLIST CLEAR ALL FUNCTIONALITY
+  function saveWishlistToLocalStorage() {
+    localStorage.setItem('wishlist', JSON.stringify(wishlist))
+  }
+  const wishlistClearAllBtn = document.getElementById('wishlist-clear-all-btn');
+  wishlistClearAllBtn.addEventListener('click' , () =>{
+    wishlist.length = 0
+
+    saveWishlistToLocalStorage(); 
+    updateWishlistCount();
+    removeFromWishlist();
+  })
+
+if (wishlistClearAllBtn) {
+  wishlistClearAllBtn.addEventListener('click', () => {
+    const confirmed = confirm('Are you sure you want to clear your entire wishlist?');
+    
+    if (confirmed) {
+      wishlist.length = 0;
+      console.log('Wishlist cleared:', wishlist);
+
+      saveWishlistToLocalStorage(); 
+      displayWishlist(); 
+    }
+  });
+}
+
+
 
   // CATEGORY FILTERING
   document.addEventListener('DOMContentLoaded', () => {
