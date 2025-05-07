@@ -99,6 +99,13 @@ nav {
   font-size: 2rem;
 }
 
+.heading img{
+  float: left;
+  width: 3rem;
+  padding-left: 0.5rem;
+}
+
+
 nav .right {
   display: flex;
   align-items: center;
