@@ -682,8 +682,32 @@ if (wishlistClearAllBtn) {
   })
 
   // SEARCH FUNCTIONALITY
-  const searchInput = document.getElementById('searchinput')
-  const searchBtn = document.getElementById('search')
+  const searchInput = document.getElementById('searchInput');
+  const searchBtn = document.getElementById('search');
+
+  searchBtn.addEventListener('click', () => {
+    const query = searchInput.value.trim().toLowerCase();
+
+    // Filter products based on the search query
+    const filteredProducts = products.filter(product => 
+      product.description.toLowerCase().includes(query) || 
+      product.title.toLowerCase().includes(query)
+    );
+
+    const productContainer = document.getElementById('allproducts');
+
+    if (filteredProducts.length > 0) {
+      // Display only the filtered products
+      displayProducts(filteredProducts);
+    } else {
+      // Display "No matches found" message
+      productContainer.innerHTML = `
+        <p style="text-align: center; margin-top: 50px;">No matches found for "${query}"</p>
+      `;
+    }
+  });
+
+
 
 export { renderCheckoutDialog, updateCartCount, displayWishlist, displayProducts, toggleWishlist, saveCartToLocalStorage };
 
