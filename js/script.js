@@ -514,7 +514,7 @@ function updateUserManagement() {
 }
 
 // MODALS
-const viewCartModalBtn = document.getElementById('cart')
+const viewCartModalBtn = document.getElementById('cart-container')
 const viewCartDialog = document.getElementById('cart-dialog')
 const closeCartDialog = document.getElementById('cart-close-btn')
 
