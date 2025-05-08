@@ -236,6 +236,7 @@ function renderWishlist() {
     btn.addEventListener('click', (event) => {
       deleteFromWishlist(parseInt(event.currentTarget.dataset.id));
       renderWishlist();
+      saveWishlistToLocalStorage()
     });
   });
 
@@ -267,6 +268,7 @@ function updateCartUI() {
     const count = cart.reduce((total, item) => total + item.quantity, 0);
     elements.cartCount.textContent = count;
   }
+  saveCartToLocalStorage()
 }
 
 function updateWishlistUI(button, added) {

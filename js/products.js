@@ -96,7 +96,7 @@ function registerUser(firstName, lastName, email, password, confirmedPassword){
     return
   }
 
-  if(!email.containt('@')){
+  if(!email.includes('@')){
     alert('Email is invalid')
     return
   }
