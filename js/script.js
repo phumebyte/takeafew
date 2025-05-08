@@ -141,6 +141,7 @@ function renderProducts(productList = products) {
               id="product-image-${item.id}"
               src="${item.thumbnail}"
               alt="${item.title}"
+              data-id="${item.id}"
               onerror="this.src='fallback-image.jpg';">
         <div class="discount">${item.discountPercentage}% OFF</div>
       </div>
@@ -162,6 +163,59 @@ function renderProducts(productList = products) {
   });
 
   elements.productContainer.addEventListener('click', handleProductClicks);
+}
+
+function renderProductDetails(productId) {
+  if (!elements.productDetail) return;
+
+  const product = getProductById(productId);
+  if (!product) return; 
+
+  let reviewsHTML = '<h3>Reviews</h3>'
+
+      for (let i = 0; i < product.reviews.length; i++) {
+        const item = product.reviews[i];
+        reviewsHTML += `
+          <div class="reviews" id=reviews>
+            <p>${item.reviewerName}  (<strong>${item.reviewerEmail}</strong>)</p> 
+            <p>Rating: ${item.rating}/5 STARS</p>
+            <p>Comment: ${item.comment}</p>
+            <div>
+              <br>
+            </div>
+          </div>`
+        }
+
+        // Populate the modal with product details
+        elements.productDetail.innerHTML = `
+          <img class="product-image" src="${product.thumbnail}" alt="${product.title}">
+          <div class="details">
+            <div class="title"><h2>${product.title}</h2></div>
+            <div class="price">R${(product.price - (product.price * (product.discountPercentage / 100))).toFixed(2)}</div>
+            <div class="description">${product.description}</div>
+            <div class="categoryName"><strong>Category: </strong>${product.category}</div>
+            <div class="discount"><strong>Discount: </strong>${product.discountPercentage}%</div>
+            <div class="rating"><strong>Rating: </strong>${product.rating} Stars</div>
+            <div class="return-policy"><strong>Return Policy: </strong>${product.returnPolicy}</div>
+            <div class="warrantyInformation"><strong>Warranty: </strong>${product.warrantyInformation}</div>
+            <div class="stock"><strong>Product in Stock: </strong>${product.stock}</div>
+            <div class="minimumOrderQuantity"><strong>Minimum Order Quantity: </strong>${product.minimumOrderQuantity}</div>
+            <div class="btn-group">
+              <button class="btn-primary add-to-cart" data-id="${product.id}">Add to Cart</button>
+              <button class="btn-primary wishlist-toggle" data-id="${product.id}">
+                <i class="bi bi-heart${wishlist.some((p) => p.id === product.id) ? '-fill' : ''}"></i>
+              </button>
+            </div>
+            <div class="reviews" id=reviews>
+              ${reviewsHTML}
+            </div>
+            
+          </div>
+        `;
+
+  elements.productDialog.showModal(); // Show the product detail modal
+
+  elements.productDetail.addEventListener('click', handleProductDetailClicks);
 }
 
 function renderCart() {
@@ -216,8 +270,8 @@ function renderWishlist() {
         <div class="wishlist-item-actions">
           <i class="bi bi-trash wishlist-remove" data-id="${item.id}"></i>
         </div>
+        <img src="${item.thumbnail}" style="width: 100px; height: 100px;" alt="${item.title}">
         <div class="product-name-wishlist">
-          <div class="product-wishlist-image" style="background: url('${item.thumbnail}');"></div>
           <p>${item.title}</p>
         </div>
         <div class="wishlist-unit-price">
@@ -260,6 +314,23 @@ function handleProductClicks(event) {
   } else if (target.classList.contains('wishlist-toggle')) {
     const added = toggleWishlist(productId);
     updateWishlistUI(target, added);
+  } else if (target.classList.contains('product-image')) {
+    renderProductDetails(productId);
+  }
+}
+
+function handleProductDetailClicks(event){
+  const target = event.target.closest('[data-id]');
+  if (!target) return;
+
+  const productId = parseInt(target.dataset.id);
+
+  if (target.classList.contains('add-to-cart')) {
+    addToCart(productId);
+    updateCartUI();
+  } else if (target.classList.contains('wishlist-toggle')) {
+    const added = toggleWishlist(productId);
+    updateWishlistUI(event.target, added);
   }
 }
 
