@@ -71,7 +71,7 @@ function deleteFromCart(deleteId) {
 }
 
 function calculateTotal(){
-  return cart.reduce((total, item) => total + (item.price * item.quantity), 0)
+  return cart.reduce((total, item) => total + (((item.price - (item.price * item.discountPercentage/100)) * item.quantity)), 0)
 }
 
 function getProductById(productId){
