@@ -276,12 +276,115 @@ function updateWishlistUI(button, added) {
   }
 }
 
+function userManagement(){
+  const user = JSON.parse(localStorage.getItem('user'))
+  const isLoggedIn = localStorage.getItem('loggedIn') === 'true'
+  const userManagement = document.getElementById('user-management')
+  const loginDialogContent = document.getElementById('login-dialog-content')
+  const viewLoginDialog = document.getElementById('login-dialog')
+  const viewRegisterDialog = document.getElementById('register-dialog')
+  const closeRegisterDialog = document.getElementById('register-back-btn')
+  const closeLoginDialog = document.getElementById('login-back-btn')
+
+  if (closeRegisterDialog) {
+    closeRegisterDialog.addEventListener('click', () => {
+      const viewRegisterDialog = document.getElementById('register-dialog');
+      if (viewRegisterDialog) viewRegisterDialog.close();
+    })
+  }
+
+  if (closeLoginDialog) {
+    closeLoginDialog.addEventListener('click', () => {
+      const viewLoginDialog = document.getElementById('login-dialog');
+      if (viewLoginDialog) viewLoginDialog.close();
+    })
+  }
+
+  if (isLoggedIn && user) {
+    // Update the user management section for logged-in users
+    userManagement.innerHTML = `
+      <i class="bi bi-person-circle" id="user-icon"></i>
+      <p>${user.firstName}</p>
+    `;
+
+    // Attach event listener to the user icon
+    const userIcon = document.getElementById('user-icon');
+    if (userIcon) {
+      userIcon.addEventListener('click', () => {
+        loginDialogContent.innerHTML = `
+          <h2>Welcome back, ${user.firstName}! You are logged in!</h2>
+          <button id="logout-btn" class="btn-primary">Logout</button>
+        `;
+    // Attach logout functionality
+    const logoutBtn = document.getElementById('logout-btn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+          localStorage.removeItem('loggedIn');
+          localStorage.removeItem('user');
+          alert('User successfully logged out');
+          updateUserManagement(); // Refresh user management after logout
+          viewLoginDialog.close();
+        });
+      }
+
+      viewLoginDialog.showModal();
+    });
+  }
+  } else {
+  // Update the user management section for non-logged-in users
+  userManagement.innerHTML = `
+    <div>
+      <a id="login">Login</a>
+    </div>
+    <div>
+      <a id="register-btn">Register</a>
+    </div>
+  `;
+
+  // Attach event listener to the login button
+  const loginButton = document.getElementById('login');
+  if (loginButton) {
+    loginButton.addEventListener('click', () => {
+      loginDialogContent.innerHTML = `
+        <form>
+          <label for="login-email">Email:</label>
+          <input type="email" id="login-email" required>
+          <label for="login-password">Password:</label>
+          <input type="password" id="login-password" required>
+          <button id="submit-login" class="btn-primary">Login</button>
+        </form>
+      `;
+
+      // Attach login functionality
+      const submitLogin = document.getElementById('submit-login');
+      if (submitLogin) {
+        submitLogin.addEventListener('click', (event) => {
+          event.preventDefault();
+          loginUser();
+        });
+      }
+
+    viewLoginDialog.showModal();
+  });
+}
+
+  // Attach event listener to the register button
+  const registerButton = document.getElementById('register-btn');
+  if (registerButton) {
+    registerButton.addEventListener('click', () => {
+      viewRegisterDialog.showModal();
+    });
+  }
+}
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     await getProducts();
     renderProducts();
     handleEventListeners();
     updateCartUI();
+    userManagement();
   } catch (error) {
     console.error('Initialization error:', error);
   }
