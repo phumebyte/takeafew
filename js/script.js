@@ -147,7 +147,8 @@ function renderProducts(productList = products) {
       <div class="details">
         <div class="reviews"><i class="bi bi-star-fill"></i> ${item.rating}</div>
         <div class="title">${item.title}</div>
-        <div class="price">R${item.price.toFixed(2)}</div>
+        <div class="price">R${(item.price - (item.price * item.discountPercentage/100)).toFixed(2)}</div>
+        <div class="higher-price">R${item.price}</div>
       </div>
       <div class="btn-group">
         <button class="btn-primary add-to-cart" data-id="${item.id}">Add to Cart</button>
@@ -181,7 +182,7 @@ function renderCart() {
             <span>${item.quantity}</span>
             <button class="incrementButton" data-id="${item.id}">+</button>
           </div>
-          <p>R ${(item.price * item.quantity).toFixed(2)}</p>
+          <p>R ${((item.price - (item.price * item.discountPercentage/100)) * item.quantity).toFixed(2)}</p>
         </div>
       </div>
     `).join('');
@@ -220,7 +221,7 @@ function renderWishlist() {
           <p>${item.title}</p>
         </div>
         <div class="wishlist-unit-price">
-          <p>R ${item.price.toFixed(2)}</p>
+          <p>R ${(item.price - (item.price * item.discountPercentage/100)).toFixed(2)}</p>
         </div>
         <div class="wishlist-stock-status">
           <p>${item.stock > 0 ? 'In Stock' : 'Out of Stock'}</p>
