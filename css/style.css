@@ -366,6 +366,23 @@ footer {
   z-index: 1000;
 }
 
+.a-product {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-sm) 0;
+}
+
+.counterProduct {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.counterProduct span {
+  margin-top: 1rem;
+}
+
 .close-cart-div {
   display: flex;
   justify-content: space-between;

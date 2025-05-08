@@ -102,6 +102,7 @@ function handleEventListeners() {
       cart.length = 0;
       alert('Cart cleared');
       renderCart();
+      updateCartCount()
     }
   });
 
@@ -124,6 +125,31 @@ function handleEventListeners() {
     } else {
       renderProducts(filteredProducts);
     }
+  });
+
+  // Category filter buttons
+  document.getElementById('allCategoryBtn')?.addEventListener('click', () => {
+    renderProducts(products); // Show all products
+  });
+
+  document.getElementById('furnitureCategoryBtn')?.addEventListener('click', () => {
+    const filtered = filterCategories('furniture');
+    renderProducts(filtered);
+  });
+
+  document.getElementById('beautyCategoryBtn')?.addEventListener('click', () => {
+    const filtered = filterCategories('beauty');
+    renderProducts(filtered);
+  });
+
+  document.getElementById('groceriesCategoryBtn')?.addEventListener('click', () => {
+    const filtered = filterCategories('groceries');
+    renderProducts(filtered);
+  });
+
+  document.getElementById('fragrancesCategoryBtn')?.addEventListener('click', () => {
+    const filtered = filterCategories('fragrances');
+    renderProducts(filtered);
   });
 }
 
@@ -227,16 +253,16 @@ function renderCart() {
     : cart.map(item => `
       <div class="a-product">
         <div class="left-product">
-          <div class="image-checkout" style="background: url('${item.thumbnail}');"></div>
+          <img src="${item.thumbnail}" style="width: 100px; height: 100px;" alt="${item.title}">
         </div>
         <div class="right-product">
-          <p>${item.title}</p>
-          <div class="counterProduct">
-            <button class="decrementButton" data-id="${item.id}">-</button>
-            <span>${item.quantity}</span>
-            <button class="incrementButton" data-id="${item.id}">+</button>
-          </div>
+          <p><strong>${item.title}</strong></p>
           <p>R ${((item.price - (item.price * item.discountPercentage/100)) * item.quantity).toFixed(2)}</p>
+          <div class="counterProduct">
+            <button class="decrementButton" style="border-radius:50%; padding: 0.75rem 1rem;" data-id="${item.id}">-</button>
+            <span>${item.quantity}</span>
+            <button class="incrementButton" style="border-radius:50%; padding: 0.75rem 1rem;" data-id="${item.id}">+</button>
+          </div>
         </div>
       </div>
     `).join('');
@@ -246,6 +272,7 @@ function renderCart() {
       updateQuantity(parseInt(event.currentTarget.dataset.id), -1);
       renderCart();
       updateCartUI();
+      updateCartCount();
     });
   });
 
@@ -254,6 +281,7 @@ function renderCart() {
       updateQuantity(parseInt(event.currentTarget.dataset.id), 1);
       renderCart();
       updateCartUI();
+      updateCartCount();
     });
   });
 
@@ -340,6 +368,25 @@ function updateCartUI() {
     elements.cartCount.textContent = count;
   }
   saveCartToLocalStorage()
+  updateCartCount();
+}
+
+function updateCartCount() {
+  const totalItems = cart.reduce((total, item) => total + item.quantity, 0); // Calculate total items in the cart
+  const cartCounterDisplay = document.getElementById('numberCount'); // Get the cart counter display element
+
+  if (cartCounterDisplay) {
+    cartCounterDisplay.textContent = totalItems;
+
+    if (totalItems === 0) {
+      cartCounterDisplay.classList.add('empty'); 
+      cartCounterDisplay.textContent = '0'; 
+    } else {
+      cartCounterDisplay.classList.remove('empty');
+    }
+  } else {
+    console.error('Cart counter display element not found!');
+  }
 }
 
 function updateWishlistUI(button, added) {

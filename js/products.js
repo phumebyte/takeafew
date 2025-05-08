@@ -151,11 +151,11 @@ function saveWishlistToLocalStorage(){
 }
 
 function filterCategories(category){
-  if(!category){
-    return products
+  if (!category || category.toLowerCase() === 'all') {
+    return products; 
   }
-
-  return products,filter(product => product.category)
+  
+  return products.filter(product => product.category.toLowerCase() === category.toLowerCase());
 }
 
 function searchFunctionality(query){
