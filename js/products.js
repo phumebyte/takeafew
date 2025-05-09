@@ -169,4 +169,12 @@ function searchFunctionality(query){
   )
 }
 
-export { products, cart, wishlist, getProducts, addToCart, updateQuantity, deleteFromCart, deleteFromWishlist, toggleWishlist, calculateTotal, getProductById, registerUser, loginUser, checkout, saveCartToLocalStorage, saveWishlistToLocalStorage, filterCategories, searchFunctionality };
+function loadCartFromLocalStorage(){
+  const storedCart = localStorage.getItem('cart')
+  if(storedCart){
+    cart.length = 0
+    cart.push(... JSON.parse(storedCart))
+  }
+}
+
+export { products, cart, wishlist, getProducts, addToCart, updateQuantity, deleteFromCart, deleteFromWishlist, toggleWishlist, calculateTotal, getProductById, registerUser, loginUser, checkout, saveCartToLocalStorage, saveWishlistToLocalStorage, filterCategories, searchFunctionality, loadCartFromLocalStorage };

@@ -1,5 +1,5 @@
 // IMPORTS
-import { products, cart, wishlist, getProducts, addToCart, updateQuantity, deleteFromCart, deleteFromWishlist, toggleWishlist, calculateTotal, getProductById, registerUser, loginUser, checkout, saveCartToLocalStorage, saveWishlistToLocalStorage, filterCategories, searchFunctionality } from "./products.js";
+import { products, cart, wishlist, getProducts, addToCart, updateQuantity, deleteFromCart, deleteFromWishlist, toggleWishlist, calculateTotal, getProductById, registerUser, loginUser, checkout, saveCartToLocalStorage, saveWishlistToLocalStorage, filterCategories, searchFunctionality, loadCartFromLocalStorage } from "./products.js";
 
 // DOM ELEMENTS
 const elements = {
@@ -501,6 +501,7 @@ function userManagement(){
 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
+    loadCartFromLocalStorage();
     await getProducts();
     renderProducts();
     handleEventListeners();
