@@ -1,4 +1,4 @@
-import { products , cart, addToCart, deleteFromCart, updateName, updateStock, totalPrice, reviewAccount, discountAmount, warranty, fiveStarRating, dimensionsCalculation } from '../js/products.js';
+import { products, cart, wishlist, addToCart } from "../js/products.js";
 
 describe('[ products ]', () => {
 
@@ -24,6 +24,17 @@ describe(' [ cart ]', () => {
     })
 
  })
+
+ describe('[ wishlist ]', () => {
+
+    test('should be defined', () => { 
+        expect( wishlist ).toBeDefined()
+    })
+    test('products should be an array', () => {
+        expect(Array.isArray(wishlist)).toBe(true);
+    });
+    
+})
 
  describe(' [ addToCartFn ]', () => { 
     test('should be a valid function', () => { 
