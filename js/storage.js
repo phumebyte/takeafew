@@ -16,54 +16,72 @@ function saveWishlistToLocalStorage(){
     localStorage.setItem('wishlist', JSON.stringify(wishlist))
 }
 
-function loginUser(email, password){
-    if(!email || !password){
-      throw new Error('Please enter all fields')
-      return
-    } 
-  
-    const user  = JSON.parse(localStorage.getItem('user'))
-  
-    if(user && user.email === email && user.password === password){
-      localStorage.setItem('loggedIn', 'true')
-      alert('User successfully logged in')
-    } else {
-      alert('Invald email or password')
-    }
+function loginUser(email, password) {
+  if (!email || !password) {
+      alert('Please enter both email and password');
+      return false;
+  }
+
+  const userData = localStorage.getItem('user');
+  if (!userData) {
+      alert('No user found. Please register first.');
+      return false;
+  }
+
+  try {
+      const user = JSON.parse(userData);
+
+      // Normalize email comparison
+      if (user.email.toLowerCase() == email.trim().toLowerCase() && user.password == password) {
+          localStorage.setItem('loggedIn', 'true');
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          alert('Login successful!' + " "+ email.trim().toLowerCase() + " " + password);
+          console.log(" "+ email.trim().toLowerCase() + " " + password);
+          return user;
+      } else {
+          alert('Invalid email or password' + " "+ email.trim().toLowerCase() + " " + password);
+          return false;
+      }
+  } catch (error) {
+      console.error('Login error:', error);
+      alert('Error during login. Please try again.');
+      return false;
+  }
 }
 
-function registerUser(firstName, lastName, email, password, confirmedPassword){
-    if(!firstName || !lastName || !email || !password || !confirmedPassword){
-      alert('Please enter all fields')
-      return
-    }
-  
-    if(password !== confirmedPassword){
-      alert('Passwords do not match')
-      return
-    }
-  
-    if(password.length < 9){
-      alert('Password is too short')
-      return
-    }
-  
-    if(!email.includes('@')){
-      alert('Email is invalid')
-      return
-    }
-  
-    if(firstName && lastName && email && password && confirmedPassword){
-      localStorage.setItem('user', JSON.stringify({
-        name: firstName,
-        surname: lastName,
-        email: email,
-        password: password
-      }))
-  
-      alert('User successfully registered')
-    }
-  
+function registerUser(firstName, lastName, email, password, confirmedPassword) {
+  if (!firstName  || !lastName  || !email  || !password  || !confirmedPassword) {
+      alert('Please fill in all fields');
+      return false;
+  }
+
+  if (password !== confirmedPassword) {
+      alert('Passwords do not match');
+      return false;
+  }
+
+  if (password.length < 9) {
+      alert('Password must be at least 9 characters');
+      return false;
+  }
+
+  if (!email.includes('@') || !email.includes('.')) {
+      alert('Please enter a valid email');
+      return false;
+  }
+
+  // Create user object
+  const user = {
+      firstName: firstName.trim(),
+      lastName: lastName.trim(),
+      email: email.trim().toLowerCase(), // Normalize email
+      password: password // In production, you should hash this!
+  };
+
+  // Store user
+  localStorage.setItem('user', JSON.stringify(user));
+  alert('Registration successful! Please login.');
+  return true;
 }
 
 function checkout(){
