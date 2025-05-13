@@ -201,33 +201,48 @@ function renderProductDetails(productId) {
   if (!elements.productDetail) return;
 
   const product = getProductById(productId);
-  if (!product) return; 
+  if (!product) return;
 
-  let reviewsHTML = '<h3>Reviews</h3>'
+  let reviewsHTML = "<h3>Reviews</h3>";
 
-      for (let i = 0; i < product.reviews.length; i++) {
-        const item = product.reviews[i];
-        reviewsHTML += `
-          <div class="reviews" id=reviews>
+  for (let i = 0; i < product.reviews.length; i++) {
+    const item = product.reviews[i];
+    reviewsHTML += `
+          <div class="reviews" id="reviews">
             <p>${item.reviewerName}  (<strong>${item.reviewerEmail}</strong>)</p> 
             <p>Rating: ${item.rating}/5 STARS</p>
             <p>Comment: ${item.comment}</p>
             <div>
               <br>
             </div>
-          </div>`
-        }
+          </div>`;
+  }
 
-        // Populate the modal with product details
-        elements.productDetail.innerHTML = `
-          <img class="product-image" src="${product.thumbnail}" alt="${product.title}">
+  let imagesHTML = "";
+
+  for (let i = 0; i < product.images.length; i++) {
+    const item = product.images[i];
+    imagesHTML += `
+            <img class="product-image" src="${item}" alt="${product.title}" style="width: 100px; height: auto; margin: 5px;">
+          `;
+  }
+
+  // Populate the modal with product details
+  elements.productDetail.innerHTML = `
+          <div class="images-container">
+            <img class="product-image" src="${product.thumbnail}" alt="${product.title}" style="width: 300px; height: auto;">
+            <div class="dimensions-images">
+              ${imagesHTML}
+            </div>
+          </div>
+          
           <div class="details">
             <div class="title"><h2>${product.title}</h2></div>
-            <div class="price">R${(product.price - (product.price * (product.discountPercentage / 100))).toFixed(2)}</div>
+            <div class="price">R${(product.price - product.price * (product.discountPercentage / 100)).toFixed(2)}</div>
             <div class="description">${product.description}</div>
             <div class="categoryName"><strong>Category: </strong>${product.category}</div>
             <div class="discount"><strong>Discount: </strong>${product.discountPercentage}%</div>
-            <div class="rating"><strong>Rating: </strong>${product.rating} Stars</div>
+            <div class="rating"><strong>Rated: </strong>${product.rating} Stars</div>
             <div class="return-policy"><strong>Return Policy: </strong>${product.returnPolicy}</div>
             <div class="warrantyInformation"><strong>Warranty: </strong>${product.warrantyInformation}</div>
             <div class="stock"><strong>Product in Stock: </strong>${product.stock}</div>
@@ -235,19 +250,18 @@ function renderProductDetails(productId) {
             <div class="btn-group">
               <button class="btn-primary add-to-cart" data-id="${product.id}">Add to Cart</button>
               <button class="btn-primary wishlist-toggle" data-id="${product.id}">
-                <i class="bi bi-heart${wishlist.some((p) => p.id === product.id) ? '-fill' : ''}"></i>
+                <i class="bi bi-heart${wishlist.some((p) => p.id === product.id) ? "-fill" : ""}"></i>
               </button>
             </div>
-            <div class="reviews" id=reviews>
+            <div class="reviews" id="reviews">
               ${reviewsHTML}
             </div>
-            
           </div>
         `;
 
   elements.productDialog.showModal(); // Show the product detail modal
 
-  elements.productDetail.addEventListener('click', handleProductDetailClicks);
+  elements.productDetail.addEventListener("click", handleProductDetailClicks);
 }
 
 function renderCart() {
