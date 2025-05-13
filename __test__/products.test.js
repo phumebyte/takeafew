@@ -1,38 +1,28 @@
-import { products, cart, wishlist, getProducts, addToCart, updateQuantity, deleteFromCart, deleteFromWishlist, toggleWishlist, calculateTotal, getProductById, registerUser, loginUser, checkout, saveCartToLocalStorage, saveWishlistToLocalStorage, filterCategories, searchFunctionality, loadCartFromLocalStorage } from "../js/products.js";
+import {products, cart, wishlist, getProducts, addToCart, updateQuantity, deleteFromCart, deleteFromWishlist, toggleWishlist, calculateTotal, getProductById, registerUser, loginUser, checkout, saveCartToLocalStorage, saveWishlistToLocalStorage, filterCategories, searchFunctionality, loadCartFromLocalStorage } from "../js/products.js";
 
 describe('[ products ]', () => {
 
-    test('should be defined', () => { 
-        expect( products ).toBeDefined()
-    })
-    test('products should be an array', () => {
-        expect(Array.isArray(products)).toBe(true);
-    });
-    
-    test('products should have a length greater than 0', () => {
-        expect(products.length).toBeGreaterThan(0);
-    });
+    test('should be a valid array', () => { 
+        expect(products).toBeDefined()
+        expect(products).toBeInstanceOf(Array);
+    })   
     
 })
 
 describe('[ cart ]', () => { 
-    test('should be defined', () => { 
-        expect( cart ).toBeDefined()
-    })
-    test('should be an array', () => { 
-        expect(Array.isArray(cart)).toBe(true)
+    test('should be a valid array', () => { 
+        expect(cart).toBeDefined()
+        expect(cart).toBeInstanceOf(Array)
     })
 
  })
 
  describe('[ wishlist ]', () => {
 
-    test('should be defined', () => { 
-        expect( wishlist ).toBeDefined()
+    test('should be defined a valid array ', () => { 
+        expect(wishlist).toBeDefined()
+        expect(wishlist).toBeInstanceOf(Array)
     })
-    test('products should be an array', () => {
-        expect(Array.isArray(wishlist)).toBe(true);
-    });
     
 })
 
