@@ -325,6 +325,13 @@ function renderWishlist() {
 
   document.querySelectorAll('.wishlist-add-cart').forEach(btn => {
     btn.addEventListener('click', (event) => {
+
+      button.classList.add('bounce')
+
+      button.addEventListener('animationed', () => {
+        button.classList.remove('bounce')
+      }, {once: true})
+      
       addToCart(parseInt(event.currentTarget.dataset.id));
       updateCartUI();
     });
