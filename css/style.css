@@ -587,19 +587,19 @@ input:focus {
 
 /* ANIMATIONS AND KEYFRAMES */
 @keyframes bounce {
-
-  0%,
-  100% {
+  0%, 20%, 50%, 80%, 100% {
     transform: translateY(0);
   }
-
-  50% {
+  40% {
     transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
   }
 }
 
 .bounce {
-  animation: bounce 0.9s ease;
+  animation: bounce 0.5s;
 }
 
 .close-wishlist-btn {

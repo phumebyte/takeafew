@@ -325,6 +325,13 @@ function renderWishlist() {
 
   document.querySelectorAll('.wishlist-add-cart').forEach(btn => {
     btn.addEventListener('click', (event) => {
+
+      button.classList.add('bounce')
+
+      button.addEventListener('animationed', () => {
+        button.classList.remove('bounce')
+      }, {once: true})
+      
       addToCart(parseInt(event.currentTarget.dataset.id));
       updateCartUI();
     });
@@ -340,6 +347,12 @@ function handleProductClicks(event) {
   if (target.classList.contains('add-to-cart')) {
     addToCart(productId);
     updateCartUI();
+
+    const changeText = target.innerHTML;
+    target.innerHTML = 'Added!'
+    setTimeout(() => {
+      target.innerHTML = changeText;
+    }, 1000)
   } else if (target.classList.contains('wishlist-toggle')) {
     const added = toggleWishlist(productId);
     updateWishlistUI(target, added);
@@ -357,6 +370,12 @@ function handleProductDetailClicks(event){
   if (target.classList.contains('add-to-cart')) {
     addToCart(productId);
     updateCartUI();
+
+    const changeText = target.innerHTML;
+    target.innerHTML = 'Added!'
+    setTimeout(() => {
+      target.innerHTML = changeText;
+    }, 1000)
   } else if (target.classList.contains('wishlist-toggle')) {
     const added = toggleWishlist(productId);
     updateWishlistUI(event.target, added);
