@@ -398,106 +398,97 @@ function updateWishlistUI(button, added) {
   }
 }
 
-function userManagement(){
-  const user = JSON.parse(localStorage.getItem('user'))
-  const isLoggedIn = localStorage.getItem('loggedIn') === 'true'
-  const userManagement = document.getElementById('user-management')
-  const loginDialogContent = document.getElementById('login-dialog-content')
-  const viewLoginDialog = document.getElementById('login-dialog')
-  const viewRegisterDialog = document.getElementById('register-dialog')
-  const closeRegisterDialog = document.getElementById('register-back-btn')
-  const closeLoginDialog = document.getElementById('login-back-btn')
+function userManagement() {
+  const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
+  const user = isLoggedIn ? JSON.parse(localStorage.getItem('currentUser')) : null;
+  const userManagementElement = document.getElementById('user-management');
+  const loginDialogContent = document.getElementById('login-dialog-content');
+  const viewLoginDialog = document.getElementById('login-dialog');
+  const viewRegisterDialog = document.getElementById('register-dialog');
 
-  if (closeRegisterDialog) {
-    closeRegisterDialog.addEventListener('click', () => {
-      const viewRegisterDialog = document.getElementById('register-dialog');
-      if (viewRegisterDialog) viewRegisterDialog.close();
-    })
-  }
-
-  if (closeLoginDialog) {
-    closeLoginDialog.addEventListener('click', () => {
-      const viewLoginDialog = document.getElementById('login-dialog');
-      if (viewLoginDialog) viewLoginDialog.close();
-    })
-  }
+  if (!userManagementElement) return;
 
   if (isLoggedIn && user) {
-    // Update the user management section for logged-in users
-    userManagement.innerHTML = `
-      <i class="bi bi-person-circle" id="user-icon"></i>
-      <p>${user.firstName}</p>
-    `;
+    // User is logged in
+    userManagementElement.innerHTML = 
+      `<i class="bi bi-person-circle" id="user-icon"></i>
+      <p>${user.firstName}</p>`
+    ;
 
-    // Attach event listener to the user icon
     const userIcon = document.getElementById('user-icon');
     if (userIcon) {
       userIcon.addEventListener('click', () => {
-        loginDialogContent.innerHTML = `
-          <h2>Welcome back, ${user.firstName}! You are logged in!</h2>
-          <button id="logout-btn" class="btn-primary">Logout</button>
-        `;
-    // Attach logout functionality
-    const logoutBtn = document.getElementById('logout-btn');
-      if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => {
-          localStorage.removeItem('loggedIn');
-          localStorage.removeItem('user');
-          alert('User successfully logged out');
-          updateUserManagement(); // Refresh user management after logout
-          viewLoginDialog.close();
-        });
-      }
+        loginDialogContent.innerHTML = 
+          `<h2>Welcome back, ${user.firstName}!</h2>
+          <button id="logout-btn" class="btn-primary">Logout</button>`
+        ;
 
-      viewLoginDialog.showModal();
-    });
-  }
+        const logoutBtn = document.getElementById('logout-btn');
+        if (logoutBtn) {
+          logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('loggedIn');
+            localStorage.removeItem('currentUser');
+            alert('User successfully logged out');
+            userManagement(); // Refresh UI
+            viewLoginDialog.close();
+          });
+        }
+
+        viewLoginDialog.showModal();
+      });
+}
   } else {
-  // Update the user management section for non-logged-in users
-  userManagement.innerHTML = `
-    <div>
-      <a id="login">Login</a>
-    </div>
-    <div>
-      <a id="register-btn">Register</a>
-    </div>
-  `;
+    // User is not logged in
+    userManagementElement.innerHTML = 
+      `<div>
+        <a id="login">Login</a>
+      </div>
+      <div>
+        <a id="register-btn">Register</a>
+      </div>`
+    ;
 
-  // Attach event listener to the login button
-  const loginButton = document.getElementById('login');
-  if (loginButton) {
-    loginButton.addEventListener('click', () => {
-      loginDialogContent.innerHTML = `
-        <form>
-          <label for="login-email">Email:</label>
-          <input type="email" id="login-email" required>
-          <label for="login-password">Password:</label>
-          <input type="password" id="login-password" required>
-          <button id="submit-login" class="btn-primary">Login</button>
-        </form>
-      `;
+    // Handle login button click
+    const loginButton = document.getElementById('login');
+    if (loginButton) {
+      loginButton.addEventListener('click', () => {
+        loginDialogContent.innerHTML = 
+          `<form id="login-form">
+            <label for="login-email">Email:</label>
+            <input type="email" id="login-email" required>
+            <label for="login-password">Password:</label>
+            <input type="password" id="login-password" required>
+            <button type="submit" id="submit-login" class="btn-primary">Login</button>
+          </form>`
+        ;
 
-      // Attach login functionality
-      const submitLogin = document.getElementById('submit-login');
-      if (submitLogin) {
-        submitLogin.addEventListener('click', (event) => {
-          event.preventDefault();
-          loginUser();
-        });
-      }
+        const loginForm = document.getElementById('login-form');
+        if (loginForm) {
+          loginForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
 
-    viewLoginDialog.showModal();
-  });
-}
+            const user = await loginUser(email, password);
+            if (user) {
+              userManagement(); // Update UI
+              viewLoginDialog.close();
+            }
+          });
+        }
 
-  // Attach event listener to the register button
-  const registerButton = document.getElementById('register-btn');
-  if (registerButton) {
-    registerButton.addEventListener('click', () => {
-      viewRegisterDialog.showModal();
-    });
+        viewLoginDialog.showModal();
+      });
+    }
+
+    // Handle register button click
+    const registerButton = document.getElementById('register-btn');
+    if (registerButton) {
+      registerButton.addEventListener('click', () => {
+        viewRegisterDialog.showModal();
+      });
+    }
   }
-}
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
