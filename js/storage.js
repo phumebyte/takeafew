@@ -16,20 +16,37 @@ function saveWishlistToLocalStorage(){
     localStorage.setItem('wishlist', JSON.stringify(wishlist))
 }
 
-function loginUser(email, password){
-    if(!email || !password){
-      throw new Error('Please enter all fields')
-      return
-    } 
-  
-    const user  = JSON.parse(localStorage.getItem('user'))
-  
-    if(user && user.email === email && user.password === password){
-      localStorage.setItem('loggedIn', 'true')
-      alert('User successfully logged in')
-    } else {
-      alert('Invald email or password')
-    }
+function loginUser(email, password) {
+  if (!email || !password) {
+      alert('Please enter both email and password');
+      return false;
+  }
+
+  const userData = localStorage.getItem('user');
+  if (!userData) {
+      alert('No user found. Please register first.');
+      return false;
+  }
+
+  try {
+      const user = JSON.parse(userData);
+
+      // Normalize email comparison
+      if (user.email.toLowerCase() == email.trim().toLowerCase() && user.password == password) {
+          localStorage.setItem('loggedIn', 'true');
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          alert('Login successful!' + " "+ email.trim().toLowerCase() + " " + password);
+          console.log(" "+ email.trim().toLowerCase() + " " + password);
+          return user;
+      } else {
+          alert('Invalid email or password' + " "+ email.trim().toLowerCase() + " " + password);
+          return false;
+      }
+  } catch (error) {
+      console.error('Login error:', error);
+      alert('Error during login. Please try again.');
+      return false;
+  }
 }
 
 function registerUser(firstName, lastName, email, password, confirmedPassword){
