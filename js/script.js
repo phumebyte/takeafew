@@ -20,8 +20,8 @@ const elements = {
   registerEmail: document.getElementById('register-email'),
   registerPassword: document.getElementById('register-password'),
   confirmedPassword: document.getElementById('confirmed-password'),
-  loginEmail: document.getElementById('login-email'),
-  loginPassword: document.getElementById('login-password'),
+  loginEmail: document.querySelector('#login-email'),
+  loginPassword: document.querySelector('#login-password'),
   clearAllBtn: document.getElementById('clear-all-button'), 
   wishlistClearAllBtn: document.getElementById('wishlist-clear-all-btn'),
   searchInput: document.getElementById('searchInput'),
@@ -88,7 +88,7 @@ function handleEventListeners() {
   elements.submitLogin?.addEventListener('click', (event) => {
     event.preventDefault();
     loginUser(elements.loginEmail.value, elements.loginPassword.value);
-    elements.loginDialog.close();
+
   });
 
   // Checkout
