@@ -49,38 +49,39 @@ function loginUser(email, password) {
   }
 }
 
-function registerUser(firstName, lastName, email, password, confirmedPassword){
-    if(!firstName || !lastName || !email || !password || !confirmedPassword){
-      alert('Please enter all fields')
-      return
-    }
-  
-    if(password !== confirmedPassword){
-      alert('Passwords do not match')
-      return
-    }
-  
-    if(password.length < 9){
-      alert('Password is too short')
-      return
-    }
-  
-    if(!email.includes('@')){
-      alert('Email is invalid')
-      return
-    }
-  
-    if(firstName && lastName && email && password && confirmedPassword){
-      localStorage.setItem('user', JSON.stringify({
-        name: firstName,
-        surname: lastName,
-        email: email,
-        password: password
-      }))
-  
-      alert('User successfully registered')
-    }
-  
+function registerUser(firstName, lastName, email, password, confirmedPassword) {
+  if (!firstName  || !lastName  || !email  || !password  || !confirmedPassword) {
+      alert('Please fill in all fields');
+      return false;
+  }
+
+  if (password !== confirmedPassword) {
+      alert('Passwords do not match');
+      return false;
+  }
+
+  if (password.length < 9) {
+      alert('Password must be at least 9 characters');
+      return false;
+  }
+
+  if (!email.includes('@') || !email.includes('.')) {
+      alert('Please enter a valid email');
+      return false;
+  }
+
+  // Create user object
+  const user = {
+      firstName: firstName.trim(),
+      lastName: lastName.trim(),
+      email: email.trim().toLowerCase(), // Normalize email
+      password: password // In production, you should hash this!
+  };
+
+  // Store user
+  localStorage.setItem('user', JSON.stringify(user));
+  alert('Registration successful! Please login.');
+  return true;
 }
 
 function checkout(){
