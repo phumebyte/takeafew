@@ -101,8 +101,15 @@ describe('[ getProducts ]', () => {
       expect(toggleWishlist).toBeDefined()
       expect(typeof toggleWishlist).toBe('function')
     })
+    test('should add product to wishlist', async () => {
+      await getProducts();
+      const product = products[0];
+      toggleWishlist(product.id);
+      expect(wishlist.length).toBe(1);
+      expect(wishlist[0].id).toBe(product.id);
+    });
   })
-
+  
   describe('[ deleteFromWishlist ]', () => {
     test('should be a valid function', () => {
       expect(deleteFromWishlist).toBeDefined()
