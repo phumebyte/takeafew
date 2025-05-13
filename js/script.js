@@ -94,6 +94,10 @@ function handleEventListeners() {
   // Checkout
   document.getElementById('checkout-btn')?.addEventListener('click', () => {
     checkout();
+    renderCart()
+    updateCartCount()
+    cart.length = 0;
+    saveCartToLocalStorage()
   });
 
   // Clear - cart & wishlist
@@ -104,6 +108,7 @@ function handleEventListeners() {
       alert('Cart cleared');
       renderCart();
       updateCartCount()
+      saveCartToLocalStorage()
     }
   });
 
