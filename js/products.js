@@ -34,7 +34,7 @@ function addToCart(productId) {
 
 function toggleWishlist(productId, button) {
   const product = products.find(item => item.id === productId)
-  if (!product) throw new Error('Product not found')
+  if (!product) throw new Error('Invalid product ID')
   
     const index = wishlist.findIndex(item => item.id === productId)
     if(index > -1){
