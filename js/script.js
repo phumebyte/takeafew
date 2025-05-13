@@ -454,6 +454,7 @@ function userManagement() {
             localStorage.removeItem('currentUser');
             alert('User successfully logged out');
             userManagement(); // Refresh UI
+            localStorage.removeItem('user'); // Remove from local storage
             viewLoginDialog.close();
           });
         }
