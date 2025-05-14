@@ -455,6 +455,10 @@ footer {
   border: none;
 }
 
+.wishlist-add-cart{
+  cursor: pointer;
+}
+
 /* REGISTER & LOGIN */
 .register-dialog {
   width: 30%;
