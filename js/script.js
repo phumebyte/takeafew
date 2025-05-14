@@ -1,4 +1,4 @@
-// IMPORTS
+// IMPORT
 import { products, cart, wishlist, getProducts, addToCart, updateQuantity, deleteFromCart, deleteFromWishlist, toggleWishlist, calculateTotal, getProductById, filterCategories, searchFunctionality} from "./products.js";
 import { loadCartFromLocalStorage, saveCartToLocalStorage, saveWishlistToLocalStorage, loginUser, registerUser, checkout } from './storage.js'
 
