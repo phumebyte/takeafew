@@ -575,14 +575,14 @@ input:focus {
 }
 
 .wishlist-heading {
-  text-align: center;
+  margin-left: 5rem;
 }
 
 .wishlist-header {
   display: flex;
   justify-content: space-between;
-  padding: 0 130px;
   padding-top: 50px;
+  margin-left: 12rem;
 }
 
 /* ANIMATIONS AND KEYFRAMES */
